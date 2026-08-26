@@ -1,0 +1,85 @@
+# CI
+name: CI
+on: [push, pull_request]
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - run: forge install foundry-rs/forge-std --no-git --shallow
+        working-directory: contracts
+      - run: forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-git --shallow
+        working-directory: contracts
+      - run: forge fmt --check
+        working-directory: contracts
+      - run: forge build --sizes
+        working-directory: contracts
+      - run: forge test -vvv
+        working-directory: contracts
+      - run: forge snapshot --check
+        working-directory: contracts
+      - run: forge coverage --report summary
+        working-directory: contracts
+
+  deep:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - run: forge install foundry-rs/forge-std --no-git --shallow
+        working-directory: contracts
+      - run: forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-git --shallow
+        working-directory: contracts
+      - run: FOUNDRY_PROFILE=deep forge test
+        working-directory: contracts
+
+  slither:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - run: forge install foundry-rs/forge-std --no-git --shallow
+        working-directory: contracts
+      - run: forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-git --shallow
+        working-directory: contracts
+      - uses: crytic/slither-action@v0
+        with:
+          target: contracts
+          fail-on: none
+          slither-args: --config-file contracts/slither.config.json
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 20, cache: npm}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+      - run: npm audit --audit-level=high
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - uses: actions/setup-node@v4
+        with: {node-version: 20, cache: npm}
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: gitleaks/gitleaks-action@v2
+
+# CI must never contain an automatic mainnet deployment job.

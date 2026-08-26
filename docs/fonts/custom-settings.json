@@ -1,0 +1,40 @@
+{
+  "fontName": "CommitMono-Tentacle",
+  "version": "1.143",
+  "source": "https://commitmono.com/ 07 Customize → Download custom for design",
+  "variableWoff2": "public/fonts/CommitMono-Tentacle.woff2 (CommitMonoV143-VF.woff2 renamed)",
+  "weight": 400,
+  "italic": false,
+  "letterSpacing": 0,
+  "lineHeight": 1,
+  "alternates": {
+    "cv01": false,
+    "cv02": false,
+    "cv03": false,
+    "cv04": false,
+    "cv05": false,
+    "cv06": false,
+    "cv07": false,
+    "cv08": false,
+    "cv09": false,
+    "cv10": true,
+    "cv11": false
+  },
+  "features": {
+    "ss01": false,
+    "ss02": false,
+    "ss03": true,
+    "ss04": true,
+    "ss05": true
+  },
+  "rationale": {
+    "cv07": "DEF = slashed zero (required for hex and amounts)",
+    "cv10": "ALT = serif/tailed l (disambiguates 1 / I / l)",
+    "cv01": "DEF = double-storey a (distinct from A in EIP-55)",
+    "cv02": "DEF = double-storey g (Commit Mono distinctive glyph)",
+    "ss01": "OFF — operator ligatures must not rewrite != in amounts",
+    "ss03_ss04_ss05": "ON — live customizer defaults; copied from the design-download feature string"
+  },
+  "opentypeFeatureSettings": "\"ss03\" 1, \"ss04\" 1, \"ss05\" 1, \"cv10\" 1, \"ss01\" 0, \"liga\" 0, \"calt\" 0",
+  "testString": "0xA12C9810b6d8e4Ff7890BE21   1.850000 ETH   1,000.25 USDC   Il1 O0 B8 b6"
+}

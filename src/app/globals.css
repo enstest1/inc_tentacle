@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --font-mono is injected by next/font/local; this chain is the §0 fallback. */
+  --font-stack: var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* Codes copied from commitmono.com 07 Customize → Download custom for design
+     with name Tentacle, weight 400, ss01/ss02 OFF, cv10 ALT (tailed l), slashed zero DEF. */
+  --font-features: "ss03" 1, "ss04" 1, "ss05" 1, "cv10" 1, "ss01" 0, "liga" 0, "calt" 0;
+  --accent: #7c6cff;
+}
+
+html {
+  background: #0b0b0e;
+}
+
+body {
+  font-family: var(--font-stack);
+  font-weight: 400;
+  font-feature-settings: var(--font-features);
+  font-variant-ligatures: none;
+  background: #0b0b0e;
+  color: #f6f6f8;
+  /* Counteracts glyph bloom for light text on #0B0B0E. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prose: warnings, error copy, explanatory text. */
+.prose,
+p {
+  max-width: 60ch;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Addresses and transaction hashes. Zero tracking; alternates on. */
+.address,
+.tx-hash {
+  font-feature-settings: var(--font-features);
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+  word-break: break-all;
+}
+
+/* Large amount displays: 5.000 ETH, 1,273.55 USDC. */
+.amount-display {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Labels sit below amounts in the hierarchy (spec §39). */
+.amount-label {
+  font-weight: 400;
+  color: #8f8f9b;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Never remove focus rings — spec §27.3 accessibility. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

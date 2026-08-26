@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+tsconfig.tsbuildinfo
+
+# Env and secrets — never commit real keys
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+*.pem
+*.key
+id_rsa
+mnemonic.txt
+DEPLOYER_PRIVATE_KEY*
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+# Broadcast folders can contain deployer traces; keep them local.
+
+# Coverage / reports
+contracts/lcov.info
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Do NOT ignore:
+# .env.example
+# deployments/*.json
+# docs/
+# SECURITY.md
+# BUILD_STATUS.md

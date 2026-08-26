@@ -1,0 +1,28 @@
+{
+  "chainId": 763373,
+  "deployments": [
+    {
+      "label": "MOCK",
+      "tentacle": "0x0000000000000000000000000000000000000000",
+      "token": "0x0000000000000000000000000000000000000000",
+      "tokenSymbol": "MOCK",
+      "tokenDecimals": 6,
+      "tokenIsProxy": false,
+      "tokenImplementation": "",
+      "tokenBlacklistable": false,
+      "tokenPausable": false,
+      "tokenSupportsPermit": false,
+      "runtimeBytecodeHash": "0x",
+      "deploymentTx": "",
+      "deployer": "",
+      "compiler": "0.8.36",
+      "evmVersion": "cancun",
+      "optimizer": true,
+      "optimizerRuns": 200,
+      "viaIr": false,
+      "gitCommit": "",
+      "deployedAt": "",
+      "verifiedUrl": ""
+    }
+  ]
+}
