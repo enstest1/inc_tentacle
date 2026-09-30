@@ -2,63 +2,102 @@
 
 **One send. Every wallet.**
 
-Tentacle is non-custodial batch-payment infrastructure built for Ink. A user or wallet-controlled agent can distribute ETH, USDC, or USDC.e to many recipients in a single atomic transaction without depositing funds into Tentacle custody.
-
-## Why Ink
-
-Ink is Tentacle's primary home: low-cost EVM execution makes multi-recipient payouts practical, while the contract's event trail gives builders a verifiable record of who sent what, to how many recipients, and with which payload commitment.
-
-Tentacle is designed as a payment primitive that can be used directly by people today and integrated by agent wallets or automation systems without adding a trusted relayer.
+Tentacle is non-custodial batch-payment infrastructure built for Ink. A user or wallet-controlled
+agent can distribute ETH, USDC, or USDC.e to many recipients in one atomic transaction without
+depositing funds into Tentacle custody.
 
 ## What V1 does
 
-- Native ETH and Ink USDC / USDC.e (two deployments of the same contract)
-- Equal or custom payouts
-- Optional ETH gas top-up with token payouts
+- Native ETH and Ink USDC / USDC.e (one immutable contract deployment per token)
+- Equal or custom payouts, optional ETH gas top-up with token payouts
 - Paste addresses or import a restricted CSV
-- Simulation before send, invalidated if the payment intent changes
+- Simulation before send, invalidated when the payment intent changes
 - Atomic batches of up to 50 recipients; larger lists split with an explicit non-atomicity warning
-- Emits `BatchExecuted` for verifiable onchain activity and receipts
+- Emits `BatchExecuted` for verifiable onchain execution and receipts
 
-## Agent compatibility
-
-Tentacle has no admin key, custody account, relayer, or `from` parameter. Any wallet or smart-account system that can authorize an Ink transaction can call the batch contract directly. See `docs/AGENT_INTEGRATION.md` for the intended integration model and safety boundaries.
-
-## What V1 does not do
-
-V1 does not implement autonomous policy enforcement, delegated spending keys, recurring schedules, custody, accounts, backend services, fees, upgrades, or arbitrary-token routing. Agent-side spending policies must currently be enforced by the calling wallet or automation system. See `docs/KNOWN_LIMITATIONS.md`.
+Tentacle has no admin key, custody account, relayer, `from` parameter, fees, or upgrade path.
+Any wallet or smart-account system that can authorize an Ink transaction can call it directly.
+See `docs/AGENT_INTEGRATION.md` and `docs/KNOWN_LIMITATIONS.md`.
 
 ## Develop
 
 ```bash
 npm ci
 npm run dev
+npm test
+npm run typecheck
+npm run build
+npm run test:e2e
 ```
 
-Contracts:
+Contracts (Foundry):
 
 ```bash
 cd contracts
-forge install foundry-rs/forge-std --no-git --shallow
-forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-git --shallow
 forge build
 forge test -vvv
 ```
+## Reviewer-facing onchain stats
 
-## Security
+`/stats` is a public reviewer page. It reads only `BatchExecuted` logs through
+the public Ink RPCs for non-zero addresses recorded in `deployments/ink-mainnet.json`.
 
-See `SECURITY.md`. The contracts are **not independently audited**. Mainnet deployment is intentionally blocked until the deployment checklist and verification steps are completed.
+It shows batch count, recipient count, unique senders, ETH distributed (native payouts plus token
+gas top-ups), configured-token totals, and explorer/deployment links. It never uses a database or
+off-chain counter. A public RPC failure is shown as unavailable, not zero activity. While the
+mainnet deployment JSON contains placeholders, the page truthfully says **not deployed**.
 
-## Networks
+Ink Sepolia is shown in a separate **test evidence** section. It is explicitly not mainnet
+activity, users, or traction.
+
+## Interaction campaign evidence
+
+The campaign makes 20–50 real `batchNative` calls (default 30) against only Anvil or Ink Sepolia.
+It varies recipient counts and uses very small native test amounts. It records transaction hashes,
+receipt status, block numbers, and recipients in `evidence/interaction-campaign-*.json`; that
+directory is gitignored. It never has a mainnet option.
+
+Anvil uses an unlocked local node account, so no key is read by the campaign. Start Anvil and use
+the existing local deployment before running it:
+
+```bash
+anvil
+cd contracts
+forge script script/DeployLocal.s.sol:DeployLocal --rpc-url http://127.0.0.1:8545 --broadcast
+cd ..
+npm run campaign:anvil -- --count 30
+```
+If Foundry is unavailable, the campaign does not attempt deployment: it can use an already-running
+Anvil deployment matching `deployments/anvil.json`, otherwise it fails with an actionable message.
+
+For Ink Sepolia, a human must first deploy and record a real non-zero address in
+`deployments/ink-sepolia.json`. Run from a secret-aware shell where the existing gitignored
+`DEPLOYER_PRIVATE_KEY` is available as an environment variable:
+
+```bash
+npm run campaign:sepolia -- --count 30
+```
+
+Sepolia evidence is test evidence only. Do not describe automated testnet transactions as users,
+adoption, or mainnet traction.
+
+## Security and deployment status
+
+The contracts are **not independently audited**. Mainnet deployment is intentionally human-gated
+until the deployment checklist, verification, token checks, and review are complete. Current
+mainnet deployment records are zero-address placeholders; Tentacle is not deployed on Ink mainnet.
 
 | Network | Chain ID | Explorer |
 |---|---:|---|
 | Ink | 57073 | https://explorer.inkonchain.com |
 | Ink Sepolia | 763373 | https://explorer-sepolia.inkonchain.com |
 
-## Submission status
+## Spark submission status
 
-Tentacle is feature-complete locally, but **not yet Spark-submission ready** because the mainnet deployment and verifiable usage proof are still missing. See `docs/SPARK_SUBMISSION.md` for the exact remaining gate.
+The codebase now includes the honest reviewer dashboard and repeatable test-evidence workflow,
+but it is **not ready to claim Spark traction or submit as a live mainnet product**. A real
+mainnet deployment, verified source, stable hosted app, and genuine independently inspectable
+mainnet activity remain required. See `docs/SPARK_SUBMISSION.md`.
 
 ## Source
 

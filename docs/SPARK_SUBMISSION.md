@@ -4,59 +4,77 @@ Audit date: 2026-09-30
 
 ## Current verdict
 
-**NOT READY TO SUBMIT YET.** The product is built locally, but Spark explicitly favors live, inspectable products with verifiable mainnet activity. Tentacle still has zeroed mainnet deployment records and no reviewer-verifiable traction dashboard.
+**NOT READY TO SUBMIT AS A LIVE MAINNET PRODUCT.** Tentacle has the implementation, a public
+reviewer dashboard, and a repeatable test-evidence workflow, but no configured Ink mainnet
+deployment, hosted app URL, verified mainnet contract, or genuine mainnet activity. Testnet and
+local activity must not be represented as traction.
 
-## Strong application positioning
+## Product positioning
 
 **Project name:** Tentacle
 
-**One-line description:** Non-custodial batch-payment infrastructure on Ink for human wallets and agent-controlled wallets.
+**One-line description:** Non-custodial batch-payment infrastructure on Ink for human wallets and
+agent-controlled wallets.
 
-**Project description + Ink impact:** Tentacle lets an Ink wallet distribute ETH, USDC, or USDC.e to many recipients in one atomic transaction. It never custodies funds, has no admin key or upgrade path, simulates before sending, and emits a verifiable execution event for every completed batch. The same primitive can be called by human wallets, smart accounts, and agent-wallet systems, creating reusable payment rails and measurable transaction activity on Ink.
+**Ink impact:** Tentacle lets an Ink wallet distribute ETH, USDC, or USDC.e to many recipients in
+one atomic transaction. It has no custody, admin key, relayer, or upgrade path; it simulates before
+sending and emits a verifiable execution event for every completed batch. The same primitive can
+be used by human wallets, smart accounts, and agent-wallet systems.
 
 **Priority alignment:** AI / agent infrastructure; payments; developer infrastructure.
 
-## What reviewers can inspect today
+## What reviewers can inspect now
 
-- Public source repository
-- Production-oriented Next.js application
-- Foundry smart contract and tests
-- Threat model, audit scope, Slither triage, deployment checklist
-- Simulation / payment-intent fingerprinting
-- Atomic ETH and ERC-20 distribution with onchain `BatchExecuted` receipts
+- Public source: https://github.com/enstest1/inc_tentacle
+- Foundry contract, tests, threat model, audit scope, Slither triage, and deployment checklist
+- A production-oriented Next.js application with simulation and receipt flow
+- `/stats`, which derives metrics only from configured onchain `BatchExecuted` logs
+- `scripts/interaction-campaign.mjs`, which creates real local/Sepolia evidence without a mainnet path
+## Honest metrics and evidence
+
+Mainnet `/stats` reports batch count, recipients, unique senders, ETH distributed, configured-token
+totals, and contract/explorer links. It reads public Ink RPCs and deployment JSON only. If there is
+no non-zero configured contract, it says **not deployed**. If the RPC is unavailable, it says so
+instead of presenting zero metrics.
+
+`/stats?network=sepolia` is a separately labelled Ink Sepolia test-evidence view. It is excluded
+from the default mainnet view and must never be called customer usage, adoption, or traction.
+
+The campaign accepts 20–50 interactions (30 default), uses tiny native test ETH values and varied
+recipient counts, waits for successful receipts with `BatchExecuted`, and records hashes and
+receipts in gitignored `evidence/interaction-campaign-*.json`. It cannot target mainnet. It uses
+an unlocked Anvil account locally and needs `DEPLOYER_PRIVATE_KEY` only at Sepolia runtime; no key
+value is logged or stored in evidence.
 
 ## Submission blockers
 
-1. Deploy and verify Tentacle on Ink Sepolia.
-2. Complete the manual Sepolia transaction matrix and record hashes.
-3. Re-run Foundry locally/on CI once `forge` is available on PATH; the JavaScript gate currently passes 67/67 unit tests, 3/3 Playwright tests, typecheck, and production build.
-4. Review the two remaining high npm advisories before launch: PostCSS in the Next 15 toolchain and `ws` in WalletConnect/Reown transitives. npm currently requires major Next/wagmi upgrades to eliminate them; Tentacle does not expose WalletConnect in V1.
-5. Deploy the approved immutable contracts on Ink mainnet and populate `deployments/ink-mainnet.json` with real addresses, bytecode hashes, transactions, deployer, commit, timestamp, and verification URLs.
-6. Publish the web app at a stable public URL with the real GitHub source link.
-7. Add a public onchain activity view derived from `BatchExecuted` events: batches, recipients, unique senders, ETH distributed, USDC distributed, and explorer links.
-8. Generate genuine usage. Do not fabricate or self-label test traffic as user traction.
-9. Record a concise reviewer demo showing connect → recipients → simulation → send → receipt / explorer proof.
-10. Submit only after all claimed usage can be cross-checked by reviewers.
+1. Deploy and verify the approved immutable contracts on Ink Sepolia; populate its deployment JSON.
+2. Run and retain genuine Sepolia evidence, always labelled testnet.
+3. Complete the manual test matrix and human security / TERMS review.
+4. Deploy approved immutable contracts on Ink mainnet only after the checklist is satisfied.
+5. Record real addresses, runtime hashes, transactions, timestamps, and verification URLs in
+   `deployments/ink-mainnet.json`.
+6. Publish the app at a stable public URL with the correct GitHub source link.
+7. Obtain genuine mainnet use from independently inspectable wallets. Do not fabricate it and do
+   not call automated testnet traffic traction.
+8. Record a concise reviewer demo: connect → recipients → simulation → send → receipt/explorer proof.
+## Suggested measurable milestones
 
-## Suggested measurable milestones for a Spark request
+These are goals, not present claims:
 
-- Mainnet V1 live and verified on Ink
-- Onchain activity dashboard live
-- First 25 unique sending wallets
-- First 100 successful batches
-- First 1,000 recipient payments
-- Publish agent-wallet integration example / SDK helper
-- Pilot one external wallet, automation, DAO, contributor-payments, or agent integration
+- Mainnet V1 live and verified
+- First 25 distinct mainnet sending wallets
+- First 100 successful mainnet batches
+- First 1,000 mainnet recipient payments
+- One external wallet, automation, DAO, contributor-payments, or agent integration
+- Agent-wallet integration example / SDK helper
 
-These are targets, not current traction claims.
+## Evidence links to fill after deployment
 
-## Evidence links to fill before submission
-
-- App: TODO
+- App: TODO (no stable hosted URL recorded)
 - GitHub: https://github.com/enstest1/inc_tentacle
-- Mainnet contract (USDC): TODO
-- Mainnet contract (USDC.e): TODO
-- Explorer / verified source: TODO
-- Activity dashboard: TODO
+- Mainnet contracts: TODO (not deployed)
+- Mainnet explorer / verified source: TODO (not deployed)
+- Mainnet activity dashboard: `/stats` after real deployment records are populated
+- Testnet evidence: local gitignored `evidence/` only; not traction
 - Demo video: TODO
-- Documentation: TODO

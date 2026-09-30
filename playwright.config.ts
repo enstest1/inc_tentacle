@@ -1,8 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * E2E runs against a local Next.js server. Wallet flows use an injected mock
- * EIP-1193 provider (spec §37.3) rather than a live MetaMask extension.
+ * E2E runs against a clean local Next.js dev server. Clearing `.next` avoids
+ * mixing production-build manifests with dev-server output between gates.
+ * Wallet flows use an injected mock EIP-1193 provider, not a live extension.
  */
 export default defineConfig({
   testDir: "./e2e",
@@ -15,9 +16,9 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run dev",
+    command: "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && npm run dev",
     url: "http://127.0.0.1:3000",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],

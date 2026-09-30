@@ -1,82 +1,67 @@
 # Tentacle Build Status
 
-- [x] Phase 0  — Repository inspection
-- [x] Phase 1  — Project scaffolding
-- [x] Phase 2  — Smart contract
-- [x] Phase 3  — Smart-contract tests
-- [x] Phase 4  — Local deployment (Anvil)
-- [x] Phase 5  — Frontend shell
-- [x] Phase 6  — Wallet connection
-- [x] Phase 7  — Recipient/amount engine
-- [x] Phase 8  — SafeSend preflight
-- [x] Phase 9  — Transaction execution
-- [x] Phase 10 — Receipt system
-- [ ] Phase 11 — Ink Sepolia deployment
-- [x] Phase 12 — Security hardening
-- [x] Phase 13 — Audit preparation
-- [x] Phase 14 — Production readiness review
+Audit date: 2026-09-30
 
-## Last Completed
-Phase 14 — Production readiness review (2026-08-25)
+- [x] Smart contract, local Anvil deployment, frontend, simulation, receipts, and test suite
+- [x] Public `/stats` reviewer page based exclusively on configured `BatchExecuted` logs
+- [x] Repeatable local / Ink Sepolia interaction-evidence campaign (20–50 native batches)
+- [ ] Ink Sepolia deployment and recorded test evidence
+- [ ] Ink mainnet deployment, verification, and genuine mainnet activity
 
-Software is built and locally verified. Ink Sepolia is **not** deployed: `DEPLOYER_PRIVATE_KEY` was never supplied, and this agent must not invent one. Mainnet remains human-gated.
+## Current status
 
-```
-MAINNET READY — NOT DEPLOYED
-H. MAINNET READINESS — NOT READY
-```
+**MAINNET NOT DEPLOYED — NOT READY TO CLAIM TRACTION OR SUBMIT AS A LIVE MAINNET PRODUCT.**
 
-### A. BUILD STATUS
-V1 app, contract, tests, CI, and docs are in this repo. Users can connect an injected wallet on Ink / Ink Sepolia, build equal/custom batches, import CSV, split >50, simulate, approve exactly, and send. Send stays disabled until SafeSend mandatory checks pass (including deployment hash, which is empty until a real deploy).
+`deployments/ink-mainnet.json` and `deployments/ink-sepolia.json` currently contain zero-address
+contract placeholders. `/stats` treats that as **not deployed**; it does not show zero as a
+deployment result and it does not query or synthesize activity. Anvil is a local development
+deployment only.
 
-### B. CONTRACT
-- Source: `contracts/src/TentacleBatcher.sol` (pragma 0.8.36, evm cancun, classic ReentrancyGuard)
-- Runtime size: 3,295 bytes
-- Sepolia: not deployed
-- Anvil: Tentacle `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512` / MockUSDC `0x5FbDB2315678afecb367f032d93F642f64180aa3`
+## Reviewer metrics
 
-### C. TESTS
-- Foundry: 48 passed (unit + 512-run fuzz + 256-run invariants, 128k calls)
-- Vitest: 67 passed
-- Playwright: 3 passed (axe on main page, CSV line errors, connect copy)
-- Manual Sepolia 1–25: not run
+`/stats` reads public Ink RPC logs for `BatchExecuted` only at non-zero Tentacle addresses from
+the deployment JSON. It aggregates batches, recipients, unique senders, native ETH distributed
+(including token-batch ETH top-ups), and per-configured-token totals. Explorer and verification
+links are derived from the same deployment record. RPC failure is shown as unavailable, never as
+no activity.
 
-### D. SECURITY
-- Slither: expected HIGH/MEDIUM (arbitrary-send-eth, calls-loop, reentrancy-events) triaged as ACCEPTED in `docs/SLITHER_TRIAGE.md`. Human sign-off still required before testnet release.
-- Threat model written and aligned with the code
-- CSP + security headers in `next.config.js` (`unsafe-eval` required by Next.js)
-- No backend, no custody, no `from` parameter
+`/stats?network=sepolia` is deliberately separate and labelled **Ink Sepolia test evidence only**.
+It must never be described as users, adoption, or mainnet traction.
 
-### E. FRONTEND
-- `npm run build` succeeded
-- Axe: no serious/critical on the main page
+## Evidence workflow
 
-### F. COSTS
-See `docs/TEST_PLAN.md`. 50-recipient `batchNative` is 2,231,814 L2 gas on Foundry. L1 data fee needs a real OP Stack node.
+`npm run campaign:anvil -- --count 30` and `npm run campaign:sepolia -- --count 30` invoke
+`scripts/interaction-campaign.mjs`. The script accepts only `anvil` and `sepolia`, defaults to 30,
+and rejects counts outside 20–50. It sends real tiny native `batchNative` interactions, verifies
+the receipt includes `BatchExecuted`, and saves an incremental JSON receipt record in gitignored
+`evidence/`. It has no mainnet option.
 
-### G. KNOWN LIMITATIONS
-See `docs/KNOWN_LIMITATIONS.md`.
+Anvil uses an unlocked local account and needs no key. Sepolia requires the existing gitignored
+`DEPLOYER_PRIVATE_KEY` to be present in the execution environment; its value is never logged or
+written to the evidence file. If Anvil or its configured contract is unavailable, the script fails
+with setup guidance and does not try to deploy anything.
+## Security and deployment gates
 
-### H. MAINNET READINESS
-**NOT READY** — no Sepolia verification, no 25 manual hashes, no human TERMS review, no independent audit, token proxy/admin not read on-chain.
+- Contract source: `contracts/src/TentacleBatcher.sol` (immutable, non-custodial design preserved)
+- Contract is not independently audited.
+- Human sign-off is still required for TERMS, Slither triage, token validation, deployment, and verification.
+- Do not run a mainnet deployment unless the documented human confirmation gate is satisfied.
 
-## Open Questions
-1. Framework/wallet dependencies were refreshed on 2026-09-30: Next 15.5.26, wagmi 2.19.5, viem 2.57.1, Playwright 1.63.0, Vitest 3.2.7, and ESLint 9.39.5. Post-update validation: 67/67 Vitest tests, 3/3 Playwright tests, typecheck, and production build pass.
-2. `npm audit` now reports no critical advisories and two high advisories that require major-version migrations according to npm: PostCSS in the Next 15 toolchain and `ws` under WalletConnect/Reown transitives. V1 imports only the injected connector and does not expose WalletConnect. Reassess before mainnet launch rather than forcing Next 16 / wagmi 3 into this release branch.
-3. 50-recipient L1 data fee on Ink is not yet measured. If material after Sepolia test 4, consider `batchNativeEqual` as a **human decision** — do not add it in V1 without that number.
-4. OpenZeppelin is installed with `forge install --no-git` (v5.2.0) because `--root contracts` submodules failed on this machine. CI reinstalls the same tag.
+## Validation
 
-## Typography (Commit Mono)
+Current branch validation on 2026-09-30: 73/73 Vitest tests passed across 11 files, 3/3
+Playwright tests passed, TypeScript typecheck passed, the Next.js production build passed with
+`/stats`, and 48/48 Foundry tests passed including 256-run invariants with 128,000 calls each. A
+fresh Anvil campaign also completed 30/30 real local batch transactions. Local QA is not traction.
 
-- [x] `public/fonts/CommitMono-Tentacle.woff2` (v1.143 variable, 86,768 bytes)
-- [x] `docs/fonts/custom-settings.json`
-- [x] `public/fonts/OFL.txt`
-- [x] `--font-features` from the customizer download string (not the spec placeholder)
-- [x] No `next/font/google` / no Google Fonts origins
-- [x] CSP `font-src 'self'`
+## Remaining human work
 
-## Remaining for a human
-- Provide `DEPLOYER_PRIVATE_KEY` (gitignored) and run Phase 11 Sepolia deploy + Blockscout verify
-- Sign off Slither triage and TERMS.md
-- Re-verify USDC / USDC.e on-chain (§5.2) before any mainnet script
-- Never run `DeployMainnet.s.sol` without `MAINNET_DEPLOYMENT_CONFIRMED=YES_I_HAVE_READ_THE_CHECKLIST`
+1. Deploy and verify immutable Tentacle contracts on Ink Sepolia, then populate the deployment JSON.
+2. Run the Sepolia campaign or manual matrix and retain its gitignored evidence locally; label it testnet.
+3. Deploy verified contracts on Ink mainnet only after all checklist gates are signed off.
+4. Populate mainnet deployment records with addresses, bytecode hashes, transactions, timestamps, and URLs.
+5. Host the app at a stable public URL, then collect genuine mainnet activity that reviewers can cross-check.
+6. Submit only when claims are supported by `/stats`, explorer links, and the public source repository.
+## Dependency audit
+
+`npm audit` on 2026-09-30 reports **0 critical, 2 high, 25 moderate** advisories. The two high advisories are PostCSS in the Next 15 dependency path and `ws` in the wagmi/WalletConnect dependency path; npm only offers breaking major upgrades to Next 16 and wagmi 3 for those paths. V1 does not expose WalletConnect. Reassess and remediate/accept explicitly before any mainnet launch rather than forcing unreviewed major migrations into this release candidate.

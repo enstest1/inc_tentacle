@@ -118,6 +118,9 @@ export default function Page() {
           Never custodial · Simulated before send
         </p>
         <footer className="mt-10 flex justify-center gap-4 text-xs text-ink-muted">
+          <a href="/stats" className="underline">
+            Stats
+          </a>
           <a href="/terms" className="underline">
             Terms
           </a>
