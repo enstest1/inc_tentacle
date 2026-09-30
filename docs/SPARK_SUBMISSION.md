@@ -48,10 +48,10 @@ value is logged or stored in evidence.
 
 ## Submission blockers
 
-1. Deploy and verify the approved immutable contracts on Ink Sepolia; populate its deployment JSON.
-2. Run and retain genuine Sepolia evidence, always labelled testnet.
-3. Complete the manual test matrix and human security / TERMS review.
-4. Deploy approved immutable contracts on Ink mainnet only after the checklist is satisfied.
+1. Ink Sepolia deployment and source verification are complete; 30/30 automated test batches are mined and retained as testnet evidence.
+2. Complete the manual test matrix and human security / TERMS review.
+3. Deploy approved immutable contracts on Ink mainnet only after the checklist is satisfied.
+4. Gather genuine external mainnet usage before claiming adoption or traction.
 5. Record real addresses, runtime hashes, transactions, timestamps, and verification URLs in
    `deployments/ink-mainnet.json`.
 6. Publish the app at a stable public URL with the correct GitHub source link.
@@ -76,5 +76,6 @@ These are goals, not present claims:
 - Mainnet contracts: TODO (not deployed)
 - Mainnet explorer / verified source: TODO (not deployed)
 - Mainnet activity dashboard: `/stats` after real deployment records are populated
-- Testnet evidence: local gitignored `evidence/` only; not traction
+- Ink Sepolia contract: https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a
+- Testnet evidence: 30 mined Sepolia batches retained locally in gitignored `evidence/`; not traction
 - Demo video: TODO

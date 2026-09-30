@@ -5,17 +5,14 @@ Audit date: 2026-09-30
 - [x] Smart contract, local Anvil deployment, frontend, simulation, receipts, and test suite
 - [x] Public `/stats` reviewer page based exclusively on configured `BatchExecuted` logs
 - [x] Repeatable local / Ink Sepolia interaction-evidence campaign (20–50 native batches)
-- [ ] Ink Sepolia deployment and recorded test evidence
+- [x] Ink Sepolia deployment, verified source, and recorded 30-transaction test evidence
 - [ ] Ink mainnet deployment, verification, and genuine mainnet activity
 
 ## Current status
 
 **MAINNET NOT DEPLOYED — NOT READY TO CLAIM TRACTION OR SUBMIT AS A LIVE MAINNET PRODUCT.**
 
-`deployments/ink-mainnet.json` and `deployments/ink-sepolia.json` currently contain zero-address
-contract placeholders. `/stats` treats that as **not deployed**; it does not show zero as a
-deployment result and it does not query or synthesize activity. Anvil is a local development
-deployment only.
+`deployments/ink-mainnet.json` remains a zero-address placeholder. Ink Sepolia is deployed and source-verified at `0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a`; `/stats?network=sepolia` reads its onchain logs. Anvil remains a local development deployment only.
 
 ## Reviewer metrics
 
@@ -52,14 +49,14 @@ with setup guidance and does not try to deploy anything.
 Current branch validation on 2026-09-30: 73/73 Vitest tests passed across 11 files, 3/3
 Playwright tests passed, TypeScript typecheck passed, the Next.js production build passed with
 `/stats`, and 48/48 Foundry tests passed including 256-run invariants with 128,000 calls each. A
-fresh Anvil campaign also completed 30/30 real local batch transactions. Local QA is not traction.
+fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Sepolia campaign completed 30/30 mined batches with exactly 30 `BatchExecuted` logs. Testnet QA is not traction.
 
 ## Remaining human work
 
-1. Deploy and verify immutable Tentacle contracts on Ink Sepolia, then populate the deployment JSON.
-2. Run the Sepolia campaign or manual matrix and retain its gitignored evidence locally; label it testnet.
-3. Deploy verified contracts on Ink mainnet only after all checklist gates are signed off.
-4. Populate mainnet deployment records with addresses, bytecode hashes, transactions, timestamps, and URLs.
+1. Complete the remaining manual matrix and human security / TERMS review.
+2. Deploy verified contracts on Ink mainnet only after all checklist gates are signed off.
+3. Populate mainnet deployment records with addresses, bytecode hashes, transactions, timestamps, and URLs.
+4. Obtain genuine external mainnet usage before claiming adoption or traction.
 5. Host the app at a stable public URL, then collect genuine mainnet activity that reviewers can cross-check.
 6. Submit only when claims are supported by `/stats`, explorer links, and the public source repository.
 ## Dependency audit
