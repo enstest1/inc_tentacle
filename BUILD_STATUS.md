@@ -61,8 +61,8 @@ See `docs/KNOWN_LIMITATIONS.md`.
 **NOT READY** — no Sepolia verification, no 25 manual hashes, no human TERMS review, no independent audit, token proxy/admin not read on-chain.
 
 ## Open Questions
-1. Next.js 15.1.7 is flagged for CVE-2025-66478. Do not ignore; a human should pin a patched 15.x and re-run `npm run build` / e2e. Not bumped mid-build to avoid a last-minute App Router break.
-2. `npm audit` reports high/critical issues (largely Next/wagmi/WalletConnect transitives). CI `npm audit --audit-level=high` will fail until those are triaged or Next is patched.
+1. Framework/wallet dependencies were refreshed on 2026-09-30: Next 15.5.26, wagmi 2.19.5, viem 2.57.1, Playwright 1.63.0, Vitest 3.2.7, and ESLint 9.39.5. Post-update validation: 67/67 Vitest tests, 3/3 Playwright tests, typecheck, and production build pass.
+2. `npm audit` now reports no critical advisories and two high advisories that require major-version migrations according to npm: PostCSS in the Next 15 toolchain and `ws` under WalletConnect/Reown transitives. V1 imports only the injected connector and does not expose WalletConnect. Reassess before mainnet launch rather than forcing Next 16 / wagmi 3 into this release branch.
 3. 50-recipient L1 data fee on Ink is not yet measured. If material after Sepolia test 4, consider `batchNativeEqual` as a **human decision** — do not add it in V1 without that number.
 4. OpenZeppelin is installed with `forge install --no-git` (v5.2.0) because `--root contracts` submodules failed on this machine. CI reinstalls the same tag.
 

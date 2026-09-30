@@ -121,7 +121,12 @@ export default function Page() {
           <a href="/terms" className="underline">
             Terms
           </a>
-          <a href="https://github.com" className="underline">
+          <a
+            href="https://github.com/enstest1/inc_tentacle"
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
             Source
           </a>
         </footer>

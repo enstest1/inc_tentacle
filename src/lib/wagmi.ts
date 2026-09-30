@@ -1,5 +1,4 @@
-import { http, createConfig, fallback, mock } from "wagmi";
-import { injected } from "wagmi/connectors";
+import { http, createConfig, fallback, injected, mock } from "wagmi";
 import { anvil, ink, inkSepolia, isAnvilEnabled } from "./chains";
 
 /**
