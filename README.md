@@ -102,3 +102,19 @@ mainnet activity remain required. See `docs/SPARK_SUBMISSION.md`.
 ## Source
 
 Repository: https://github.com/enstest1/inc_tentacle
+
+## Agent-first interfaces
+
+Tentacle can now be used directly by agents as well as through the wallet UI.
+
+- `/agents` — copy-paste MCP/API onboarding for agent builders.
+- `/api/mcp` — remote Streamable HTTP MCP endpoint.
+- `npm run mcp` — local stdio MCP server.
+- `/api/agent/prepare` — unsigned transaction builder for ETH, USDC, and USDC.e batches.
+- `/api/agent/manifest` — machine-readable capability manifest.
+- `/api/x402/discovery` — x402 V2-style discovery metadata using CAIP-2 network identifiers.
+- `sdk/tentacle-client.ts` — small fetch-based TypeScript client.
+
+MCP tools: `tentacle_prepare_batch`, `tentacle_contract_info`, `tentacle_get_stats`, and `tentacle_x402_info`.
+
+The machine interfaces never receive a private key. They prepare deterministic unsigned transactions for a caller-controlled wallet or smart account to review and sign. x402 discovery interoperability is live; paid x402 settlement is intentionally disabled until an Ink-compatible facilitator or reviewed self-facilitator is configured.

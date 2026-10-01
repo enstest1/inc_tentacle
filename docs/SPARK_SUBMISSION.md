@@ -79,3 +79,11 @@ These are goals, not present claims:
 - Ink Sepolia contract: https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a
 - Testnet evidence: 30 mined Sepolia batches retained locally in gitignored `evidence/`; not traction
 - Demo video: TODO
+
+## Agent-first submission evidence
+
+This release candidate adds reviewer-usable agent infrastructure on top of the immutable payment primitive: remote Streamable HTTP MCP (`/api/mcp`), local stdio MCP (`npm run mcp`), unsigned HTTP transaction preparation (`/api/agent/prepare`), agent capability manifest, onchain stats tool, TypeScript SDK, and an `/agents` onboarding page.
+
+The x402 surface is intentionally scoped to V2-style discovery metadata today. CAIP-2 network identifiers are validated with `@x402/core`; paid settlement is not claimed until an Ink-compatible facilitator or reviewed self-facilitator is configured. This distinction should remain explicit in any Spark submission.
+
+Mainnet deployment and genuine external usage remain submission gates. Automated Sepolia activity is technical evidence only.

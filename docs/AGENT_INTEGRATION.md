@@ -47,3 +47,22 @@ Before calling Tentacle, an integrating wallet should independently enforce cont
 - human approval above a configured threshold
 
 A future Tentacle policy module may standardize these controls, but it should be treated as a separate security surface and audited independently.
+
+## Agent interfaces shipped in this release
+
+Tentacle now exposes the payment primitive through three machine-facing surfaces:
+
+- Remote MCP: `/api/mcp` using Streamable HTTP.
+- Local MCP: `npm run mcp` using stdio.
+- HTTP transaction builder: `POST /api/agent/prepare`.
+- Minimal TypeScript client: `sdk/tentacle-client.ts`.
+
+The MCP server currently exposes `tentacle_prepare_batch`, `tentacle_contract_info`, `tentacle_get_stats`, and `tentacle_x402_info`.
+
+`tentacle_prepare_batch` returns unsigned transaction calldata only. It never accepts a private key and never signs or broadcasts on behalf of the caller. A wallet or smart account remains the authorization and signing boundary.
+
+## x402 interoperability
+
+`GET /api/x402/discovery` publishes x402 V2-style discovery metadata and validates CAIP-2 network identifiers with `@x402/core`. The discovery entry advertises the MCP tool and its input schema so agent systems can discover how to prepare a Tentacle batch.
+
+Production x402 paid settlement is **not enabled yet**. Tentacle will not advertise a fake `402 Payment Required` flow until an Ink-compatible facilitator or a reviewed self-facilitator is configured for the desired Ink network and asset. This keeps the current claim precise: x402 discovery interoperability is live; paid x402 settlement remains a separate reviewed milestone.

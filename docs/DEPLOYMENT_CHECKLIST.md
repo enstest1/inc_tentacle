@@ -2,12 +2,12 @@
 
 ## Ink Sepolia
 
-- [ ] `DEPLOYER_PRIVATE_KEY` in a gitignored local `.env` (never `NEXT_PUBLIC_*`)
-- [ ] `forge script script/DeploySepolia.s.sol --rpc-url $INK_SEPOLIA_RPC --broadcast`
-- [ ] `deployments/ink-sepolia.json` written by the script (runtime hash from chain)
-- [ ] Source verified on Blockscout
-- [ ] Frontend env pointed at the new addresses
-- [ ] Manual tests 1–25 with hashes in `docs/TEST_PLAN.md`
+- [x] `DEPLOYER_PRIVATE_KEY` in a gitignored local `.env` (never `NEXT_PUBLIC_*`)
+- [x] Ink Sepolia deployment broadcast and receipt confirmed
+- [x] `deployments/ink-sepolia.json` populated with address, runtime hash, deployment tx, and timestamp
+- [x] Source verified on Blockscout
+- [x] Frontend reads the checked-in Ink Sepolia deployment record
+- [x] Automated 30/30 Sepolia interaction campaign with 30 onchain `BatchExecuted` logs (manual matrix remains separately reviewable)
 
 ## Ink mainnet — human only
 

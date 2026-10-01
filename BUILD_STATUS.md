@@ -62,3 +62,20 @@ fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Se
 ## Dependency audit
 
 `npm audit` on 2026-09-30 reports **0 critical, 2 high, 25 moderate** advisories. The two high advisories are PostCSS in the Next 15 dependency path and `ws` in the wagmi/WalletConnect dependency path; npm only offers breaking major upgrades to Next 16 and wagmi 3 for those paths. V1 does not expose WalletConnect. Reassess and remediate/accept explicitly before any mainnet launch rather than forcing unreviewed major migrations into this release candidate.
+
+## Agent-first release candidate
+
+The current branch now includes a real agent integration layer rather than only contract-level agent compatibility:
+
+- remote Streamable HTTP MCP at `/api/mcp`
+- local stdio MCP via `npm run mcp`
+- unsigned HTTP transaction builder at `/api/agent/prepare`
+- machine-readable agent manifest at `/api/agent/manifest`
+- reviewer-verifiable MCP stats tool
+- x402 V2-style discovery metadata at `/api/x402/discovery`, with CAIP-2 network identifiers validated by `@x402/core`
+- TypeScript helper in `sdk/`
+- public `/agents` onboarding page
+
+Production x402 paid settlement is not claimed or enabled because an Ink-compatible facilitator/self-facilitator has not yet been reviewed/configured. Mainnet remains gated by the human deployment/security checklist.
+
+Validation after these changes: TypeScript typecheck passes and 76/76 Vitest tests pass across 12 files, including new agent transaction-builder tests. Windows currently blocks specific Next-generated JavaScript filenames locally; `/agents`, the agent manifest, and x402 discovery returned HTTP 200 under local Turbopack, while clean production build validation is delegated to Linux CI.
