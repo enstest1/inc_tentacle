@@ -1,4 +1,4 @@
-# Ink Spark application draft
+﻿# Ink Spark application draft
 
 Status: public production app and verified Ink mainnet beta are live. External-user traction is not yet claimed.
 
@@ -39,6 +39,7 @@ Current testnet evidence: 30/30 automated Ink Sepolia batch transactions mined, 
 AI / Agent Infrastructure; Payments / Developer Infrastructure.
 
 ## Funding request
-Suggested ask: **$15,000 USDC**, milestone-based.
+Suggested ask: **10,000 USDC**, milestone-based.
 
-Proposed use: independent security review and remediation, USDC.e/mainnet expansion, x402 facilitator or reviewed self-facilitator integration, SDK/MCP hardening, ecosystem integrations, developer onboarding, and measurable external Ink usage. No grant claim depends on fabricated testnet or self-generated "traction."
+Proposed use: independent professional security review and remediation; USDC.e expansion after review; MCP/SDK and x402 interoperability hardening; Ink ecosystem integrations; developer onboarding; and community testing aimed at measurable external Ink usage. Funds are not requested for salaries, trading capital, or basic deployment costs. No grant claim depends on fabricated testnet or self-generated "traction."
+
