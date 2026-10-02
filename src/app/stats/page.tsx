@@ -10,7 +10,7 @@ import { loadDeployments, type DeploymentRecord } from "@/lib/deployments";
 import { aggregateBatchEvents, configuredTokenTotals, type BatchEventLike, type BatchStats } from "@/lib/stats";
 
 const ZERO = zeroAddress.toLowerCase();
-const LOG_BLOCK_SPAN = 9_999n;
+const LOG_BLOCK_SPAN = 999n;
 
 type DeploymentView = { deployment: DeploymentRecord; stats?: BatchStats; events?: BatchEventLike[]; error?: string };
 type ChainView = { loading: boolean; deployments: DeploymentView[] };

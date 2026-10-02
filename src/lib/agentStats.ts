@@ -4,7 +4,7 @@ import { tentacleAbi } from "./contracts";
 import { loadDeployments } from "./deployments";
 import { aggregateBatchEvents, configuredTokenTotals, type BatchEventLike } from "./stats";
 
-const LOG_BLOCK_SPAN = 9_999n;
+const LOG_BLOCK_SPAN = 999n;
 const ZERO = zeroAddress.toLowerCase();
 
 function txHash(value: string): value is `0x${string}` {

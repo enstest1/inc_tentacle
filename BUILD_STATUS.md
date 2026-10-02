@@ -103,3 +103,7 @@ the signing boundary.
 After hardening log scans to 9,999-block chunks for public-RPC compatibility,
 `tentacle_get_stats` returned 30 batches, 120 recipients, 1 unique sender, and 0.00024 ETH
 distributed from the verified Ink Sepolia deployment. This remains testnet evidence only.
+
+## Mainnet QA evidence — 2026-10-01
+
+Project-controlled QA tx `0x9bdf4f65c7f9e164ed06391947cbcc9b71dc123bf9e8da444c0269372d0b1d5b` succeeded on Ink mainnet against the verified USDC-backed Tentacle contract. It emitted one `BatchExecuted` event covering 2 recipients and 0.000003 ETH. This is launch QA, not external-user traction. Mainnet public-RPC log scans are chunked to 1,000 blocks maximum for compatibility with Ink public RPC limits.

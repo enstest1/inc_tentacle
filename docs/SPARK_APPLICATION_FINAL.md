@@ -26,6 +26,7 @@ Additional evidence for the application text:
 - Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
 - Verified mainnet contract: https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164?tab=contract
 - Mainnet deploy tx: https://explorer.inkonchain.com/tx/0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b
+- Mainnet QA batch: https://explorer.inkonchain.com/tx/0x9bdf4f65c7f9e164ed06391947cbcc9b71dc123bf9e8da444c0269372d0b1d5b
 - Sepolia test evidence: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
 
 ## Mainnet Contracts Deployed
@@ -43,7 +44,7 @@ Select: AI / agents; Payments; Developer tooling
 ## Proof of Traction or Demand
 Tentacle is live on Ink mainnet with a source-verified contract, public app, public MCP/API/SDK interfaces, and reviewer-verifiable onchain metrics. The Ink Sepolia deployment completed 30 automated QA batches covering 120 recipient payments; this is disclosed as technical test evidence, not user traction.
 
-The mainnet deployment is a new beta, so we do not claim external users, revenue, TVL, or independent adoption yet. The first mainnet interaction is project-controlled QA and will be labelled as such. The grant would help convert strong technical proof into measurable ecosystem usage through security review, ecosystem integrations, community testers, and agent/developer distribution.
+The mainnet deployment is a new beta, so we do not claim external users, revenue, TVL, or independent adoption yet. A project-controlled mainnet QA batch is already mined and publicly verifiable: 1 successful batch, 2 recipients, and 0.000003 ETH distributed. It is explicitly labelled QA, not external traction. The grant would help convert strong technical proof into measurable ecosystem usage through security review, ecosystem integrations, community testers, and agent/developer distribution.
 
 Proposed measurable next milestones: 25 distinct mainnet sending wallets, 100 successful mainnet batches, 1,000 recipient payments, and at least two external wallet/agent/treasury integrations.
 
