@@ -8,6 +8,7 @@ Audit date: 2026-09-30
 - [x] Ink Sepolia deployment, verified source, and recorded 30-transaction test evidence
 - [x] Ink mainnet USDC/ETH deployment and Blockscout verification
 - [ ] Genuine external mainnet activity
+- [x] Spark grant application submitted on 2026-10-01
 
 ## Current status
 
@@ -55,10 +56,10 @@ fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Se
 ## Remaining work
 
 1. Complete human TERMS/legal review and obtain an independent professional security review before describing the contracts as audited.
-2. Run a small mainnet QA batch and keep it clearly labelled as project-controlled QA, not external traction.
+2. [DONE] Small project-controlled mainnet QA batch mined and publicly verifiable.
 3. Obtain genuine external mainnet usage before claiming adoption or traction.
 4. Decide whether/when to deploy the separate USDC.e instance.
-5. Keep public hosting healthy and submit only claims supported by `/stats`, explorer links, and the public source repository.
+5. Keep public hosting healthy and respond promptly to Spark reviewer questions or requests.
 ## Dependency audit
 
 `npm audit` on 2026-09-30 reports **0 critical, 2 high, 25 moderate** advisories. The two high advisories are PostCSS in the Next 15 dependency path and `ws` in the wagmi/WalletConnect dependency path; npm only offers breaking major upgrades to Next 16 and wagmi 3 for those paths. V1 does not expose WalletConnect. Reassess and remediate/accept explicitly before any mainnet launch rather than forcing unreviewed major migrations into this release candidate.

@@ -1,6 +1,6 @@
 # Ink Spark application — submission copy
 
-Prepared: 2026-10-01
+Prepared and submitted: 2026-10-01
 
 ## Project Name
 Tentacle
@@ -49,13 +49,7 @@ The mainnet deployment is a new beta, so we do not claim external users, revenue
 Proposed measurable next milestones: 25 distinct mainnet sending wallets, 100 successful mainnet batches, 1,000 recipient payments, and at least two external wallet/agent/treasury integrations.
 
 ## Builder Info
-- Name or Alias: REQUIRED FROM BUILDER
-- Email: REQUIRED FROM BUILDER
-- Twitter/X Profile: REQUIRED FROM BUILDER
-- Telegram: REQUIRED FROM BUILDER
-- Discord: REQUIRED FROM BUILDER
-- Previous Ink contribution outside Tentacle: choose truthfully at submission
-- Other chains previously built on: choose truthfully at submission
+Submitted directly through the Spark form using builder-supplied contact details. Personal contact fields are intentionally not stored in this public repository.
 
 ## Requested Grant Amount
 10,000 USDC
