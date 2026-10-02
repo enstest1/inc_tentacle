@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const example = {
@@ -27,13 +28,15 @@ export default function AgentsPage() {
     [origin],
   );
 
-  const curl = `curl -X POST ${origin}/api/agent/prepare \\\n  -H "Content-Type: application/json" \\\n  -d '${JSON.stringify(example)}'`;
+  const curl = `curl -X POST ${origin}/api/agent/prepare \\
+  -H "Content-Type: application/json" \\
+  -d '${JSON.stringify(example)}'`;
 
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-4 py-10 text-ink-text md:px-6">
-      <a href="/" className="text-sm text-ink-muted underline">
-        ← Tentacle
-      </a>
+      <Link href="/" className="text-sm text-ink-muted underline">
+        &lt;- Tentacle
+      </Link>
       <div className="mt-8 rounded-2xl border border-ink-border bg-ink-surface p-6 md:p-10">
         <p className="text-xs uppercase tracking-[0.24em] text-ink-muted">Agent infrastructure on Ink</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight">Tentacle for agents</h1>
@@ -83,9 +86,9 @@ export default function AgentsPage() {
       <section className="mt-6 rounded-2xl border border-ink-border bg-ink-surface p-6">
         <h2 className="text-xl font-semibold">Agent tools</h2>
         <ul className="mt-4 space-y-3 text-sm text-ink-muted">
-          <li><code className="text-ink-text">tentacle_prepare_batch</code> — build unsigned batch calldata.</li>
-          <li><code className="text-ink-text">tentacle_contract_info</code> — inspect configured deployments.</li>
-          <li><code className="text-ink-text">tentacle_x402_info</code> — inspect x402 interoperability status.</li>
+          <li><code className="text-ink-text">tentacle_prepare_batch</code> - build unsigned batch calldata.</li>
+          <li><code className="text-ink-text">tentacle_contract_info</code> - inspect configured deployments.</li>
+          <li><code className="text-ink-text">tentacle_x402_info</code> - inspect x402 interoperability status.</li>
         </ul>
         <div className="mt-6 flex flex-wrap gap-4 text-sm">
           <a className="underline" href="/api/agent/manifest">Agent manifest</a>
