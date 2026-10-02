@@ -6,7 +6,7 @@ Audit date: 2026-09-30
 
 **NOT READY TO SUBMIT AS A LIVE MAINNET PRODUCT.** Tentacle has the implementation, a public
 reviewer dashboard, and a repeatable test-evidence workflow, but no configured Ink mainnet
-deployment, hosted app URL, verified mainnet contract, or genuine mainnet activity. Testnet and
+deployment, verified mainnet contract, or genuine mainnet activity. Testnet and
 local activity must not be represented as traction.
 
 ## Product positioning
@@ -54,7 +54,7 @@ value is logged or stored in evidence.
 4. Gather genuine external mainnet usage before claiming adoption or traction.
 5. Record real addresses, runtime hashes, transactions, timestamps, and verification URLs in
    `deployments/ink-mainnet.json`.
-6. Publish the app at a stable public URL with the correct GitHub source link.
+6. [DONE] Public app: https://tentacle-production-747b.up.railway.app with GitHub source linked.
 7. Obtain genuine mainnet use from independently inspectable wallets. Do not fabricate it and do
    not call automated testnet traffic traction.
 8. Record a concise reviewer demo: connect → recipients → simulation → send → receipt/explorer proof.
@@ -71,14 +71,14 @@ These are goals, not present claims:
 
 ## Evidence links to fill after deployment
 
-- App: TODO (no stable hosted URL recorded)
+- App: https://tentacle-production-747b.up.railway.app
 - GitHub: https://github.com/enstest1/inc_tentacle
 - Mainnet contracts: TODO (not deployed)
 - Mainnet explorer / verified source: TODO (not deployed)
 - Mainnet activity dashboard: `/stats` after real deployment records are populated
 - Ink Sepolia contract: https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a
 - Testnet evidence: 30 mined Sepolia batches retained locally in gitignored `evidence/`; not traction
-- Demo video: TODO
+- Demo video: `demo/tentacle-reviewer-demo.mp4` in the public repository
 
 ## Agent-first submission evidence
 

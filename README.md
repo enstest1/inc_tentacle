@@ -19,6 +19,15 @@ Tentacle has no admin key, custody account, relayer, `from` parameter, fees, or 
 Any wallet or smart-account system that can authorize an Ink transaction can call it directly.
 See `docs/AGENT_INTEGRATION.md` and `docs/KNOWN_LIMITATIONS.md`.
 
+## Live app
+
+- App: https://tentacle-production-747b.up.railway.app
+- Agent onboarding: https://tentacle-production-747b.up.railway.app/agents
+- Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
+- Agent manifest: https://tentacle-production-747b.up.railway.app/api/agent/manifest
+- x402 discovery: https://tentacle-production-747b.up.railway.app/api/x402/discovery
+- Sepolia reviewer stats: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
+
 ## Develop
 
 ```bash
@@ -96,7 +105,7 @@ mainnet deployment records are zero-address placeholders; Tentacle is not deploy
 
 The codebase now includes the honest reviewer dashboard and repeatable test-evidence workflow,
 but it is **not ready to claim Spark traction or submit as a live mainnet product**. A real
-mainnet deployment, verified source, stable hosted app, and genuine independently inspectable
+mainnet deployment, verified source, and genuine independently inspectable
 mainnet activity remain required. See `docs/SPARK_SUBMISSION.md`.
 
 ## Source

@@ -51,13 +51,13 @@ Playwright tests passed, TypeScript typecheck passed, the Next.js production bui
 `/stats`, and 48/48 Foundry tests passed including 256-run invariants with 128,000 calls each. A
 fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Sepolia campaign completed 30/30 mined batches with exactly 30 `BatchExecuted` logs. Testnet QA is not traction.
 
-## Remaining human work
+## Remaining work
 
 1. Complete the remaining manual matrix and human security / TERMS review.
 2. Deploy verified contracts on Ink mainnet only after all checklist gates are signed off.
 3. Populate mainnet deployment records with addresses, bytecode hashes, transactions, timestamps, and URLs.
 4. Obtain genuine external mainnet usage before claiming adoption or traction.
-5. Host the app at a stable public URL, then collect genuine mainnet activity that reviewers can cross-check.
+5. Public hosting is live at https://tentacle-production-747b.up.railway.app; keep it healthy while collecting genuine mainnet activity.
 6. Submit only when claims are supported by `/stats`, explorer links, and the public source repository.
 ## Dependency audit
 
