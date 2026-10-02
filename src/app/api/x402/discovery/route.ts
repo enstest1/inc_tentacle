@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { NetworkSchema } from "@x402/core/schemas";
+import { getPublicOrigin } from "@/lib/publicOrigin";
 
 export function GET(request: Request) {
   const networks = ["eip155:57073", "eip155:763373"].map((network) => NetworkSchema.parse(network));
-  const origin = new URL(request.url).origin;
+  const origin = getPublicOrigin(request);
   const inputSchema = {
     type: "object",
     properties: {

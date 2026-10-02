@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import { getPublicOrigin } from "@/lib/publicOrigin";
 
 export function GET(request: Request) {
-  const origin = new URL(request.url).origin;
+  const origin = getPublicOrigin(request);
   return NextResponse.json({
     name: "Tentacle",
     description: "Agent-native atomic batch payments on Ink",
