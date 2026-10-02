@@ -12,3 +12,18 @@ Do not record this as a "mainnet traction" demo until the mainnet deployment and
 
 ## Reviewer message
 “Agents do not hand Tentacle keys. MCP/API prepare deterministic unsigned transactions; the wallet policy remains the authorization boundary. The immutable contract settles all recipients atomically and emits one verifiable event.”
+
+## Current recorded testnet demo
+
+A 57-second technical reviewer recording is checked in at `demo/tentacle-reviewer-demo.mp4`.
+It shows the live agent onboarding page, machine-readable manifest, x402 discovery metadata,
+Ink Sepolia stats, and the source-verified Sepolia contract. It is explicitly testnet evidence,
+not a claim of mainnet usage or external traction.
+
+Regenerate it against any deployed Tentacle URL with:
+
+```bash
+TENTACLE_DEMO_URL=https://your-host.example node scripts/record-reviewer-demo.mjs
+```
+
+After mainnet launch, replace or supplement this with the wallet-signing flow in the shot list above.
