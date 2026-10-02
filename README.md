@@ -26,7 +26,8 @@ See `docs/AGENT_INTEGRATION.md` and `docs/KNOWN_LIMITATIONS.md`.
 - Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
 - Agent manifest: https://tentacle-production-747b.up.railway.app/api/agent/manifest
 - x402 discovery: https://tentacle-production-747b.up.railway.app/api/x402/discovery
-- Sepolia reviewer stats: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
+- Mainnet reviewer stats: https://tentacle-production-747b.up.railway.app/stats
+- Sepolia test evidence: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
 
 ## Develop
 
@@ -53,8 +54,8 @@ the public Ink RPCs for non-zero addresses recorded in `deployments/ink-mainnet.
 
 It shows batch count, recipient count, unique senders, ETH distributed (native payouts plus token
 gas top-ups), configured-token totals, and explorer/deployment links. It never uses a database or
-off-chain counter. A public RPC failure is shown as unavailable, not zero activity. While the
-mainnet deployment JSON contains placeholders, the page truthfully says **not deployed**.
+off-chain counter. A public RPC failure is shown as unavailable, not zero activity. The primary
+Ink mainnet USDC-backed Tentacle deployment is recorded and verified; USDC.e remains explicitly pending.
 
 Ink Sepolia is shown in a separate **test evidence** section. It is explicitly not mainnet
 activity, users, or traction.
@@ -92,9 +93,9 @@ adoption, or mainnet traction.
 
 ## Security and deployment status
 
-The contracts are **not independently audited**. Mainnet deployment is intentionally human-gated
-until the deployment checklist, verification, token checks, and review are complete. Current
-mainnet deployment records are zero-address placeholders; Tentacle is not deployed on Ink mainnet.
+The contracts are **not independently audited**. A limited Ink mainnet beta is live for native ETH and
+Circle USDC through the verified immutable USDC-backed Tentacle contract. USDC.e remains undeployed and
+is shown as pending rather than implied as available.
 
 | Network | Chain ID | Explorer |
 |---|---:|---|
@@ -103,10 +104,9 @@ mainnet deployment records are zero-address placeholders; Tentacle is not deploy
 
 ## Spark submission status
 
-The codebase now includes the honest reviewer dashboard and repeatable test-evidence workflow,
-but it is **not ready to claim Spark traction or submit as a live mainnet product**. A real
-mainnet deployment, verified source, and genuine independently inspectable
-mainnet activity remain required. See `docs/SPARK_SUBMISSION.md`.
+Tentacle is now a **live, verified Ink mainnet beta** for ETH and native USDC, with public agent interfaces
+and reviewer metrics. It still must not claim independent-user traction until external wallets use it.
+See `docs/SPARK_SUBMISSION.md` for the evidence and remaining adoption milestones.
 
 ## Source
 

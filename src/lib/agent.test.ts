@@ -25,9 +25,10 @@ describe("prepareBatch", () => {
     ).toThrow("Duplicate recipients");
   });
 
-  it("refuses an undeployed mainnet route", () => {
-    expect(() =>
-      prepareBatch({ chainId: 57073, asset: "ETH", recipients: [A], amounts: ["0.001"] }),
-    ).toThrow("not deployed");
+  it("builds unsigned Ink mainnet native calldata", () => {
+    const result = prepareBatch({ chainId: 57073, asset: "ETH", recipients: [A], amounts: ["0.001"] });
+    expect(result.contract.toLowerCase()).toBe("0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164");
+    expect(result.functionName).toBe("batchNative");
+    expect(BigInt(result.transaction.value)).toBe(1_000_000_000_000_000n);
   });
 });

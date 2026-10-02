@@ -6,15 +6,15 @@ export function GET(request: Request) {
   return NextResponse.json({
     name: "Tentacle",
     description: "Agent-native atomic batch payments on Ink",
-    version: "1.1.0-agent",
+    version: "1.1.1-agent",
     networks: [
-      { name: "Ink", chainId: 57073, caip2: "eip155:57073", status: "mainnet-pending" },
+      { name: "Ink", chainId: 57073, caip2: "eip155:57073", status: "live-mainnet" },
       { name: "Ink Sepolia", chainId: 763373, caip2: "eip155:763373", status: "live-testnet" },
     ],
     capabilities: ["prepare_batch", "contract_info", "stats", "x402_discovery"],
     endpoints: {
       prepareBatch: `${origin}/api/agent/prepare`,
-      stats: `${origin}/stats?network=sepolia`,
+      stats: `${origin}/stats`,
       x402Discovery: `${origin}/api/x402/discovery`,
       agentDocs: `${origin}/agents`,
     },

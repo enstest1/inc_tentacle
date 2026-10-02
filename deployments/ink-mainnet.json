@@ -3,7 +3,7 @@
   "deployments": [
     {
       "label": "USDC",
-      "tentacle": "0x0000000000000000000000000000000000000000",
+      "tentacle": "0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164",
       "token": "0x2D270e6886d130D724215A266106e6832161EAEd",
       "tokenSymbol": "USDC",
       "tokenDecimals": 6,
@@ -12,17 +12,17 @@
       "tokenBlacklistable": true,
       "tokenPausable": true,
       "tokenSupportsPermit": true,
-      "runtimeBytecodeHash": "0x",
-      "deploymentTx": "",
-      "deployer": "",
+      "runtimeBytecodeHash": "0x6be0c625ce8f948b42550c16a97da2433efaed93984f3896522d997429918d0e",
+      "deploymentTx": "0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b",
+      "deployer": "0xA634BcD929951E3f510B96984aeaEDAF06af8e02",
       "compiler": "0.8.36",
       "evmVersion": "cancun",
       "optimizer": true,
       "optimizerRuns": 200,
       "viaIr": false,
-      "gitCommit": "",
-      "deployedAt": "",
-      "verifiedUrl": ""
+      "gitCommit": "870c738da782f5dbaed2a52a8e1f8de8a6dc49f7",
+      "deployedAt": "2026-10-02T01:52:28.000Z",
+      "verifiedUrl": "https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164?tab=contract"
     },
     {
       "label": "USDC.e",

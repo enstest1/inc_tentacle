@@ -4,10 +4,7 @@ Audit date: 2026-09-30
 
 ## Current verdict
 
-**NOT READY TO SUBMIT AS A LIVE MAINNET PRODUCT.** Tentacle has the implementation, a public
-reviewer dashboard, and a repeatable test-evidence workflow, but no configured Ink mainnet
-deployment, verified mainnet contract, or genuine mainnet activity. Testnet and
-local activity must not be represented as traction.
+**LIVE MAINNET BETA; SUBMISSION EVIDENCE IS VERIFIABLE, BUT EXTERNAL TRACTION IS NOT YET CLAIMED.** Tentacle has a public reviewer dashboard, repeatable test evidence, a verified Ink mainnet USDC-backed contract, and live agent interfaces. Project-controlled QA and testnet activity must not be represented as independent-user traction.
 
 ## Product positioning
 
@@ -48,16 +45,13 @@ value is logged or stored in evidence.
 
 ## Submission blockers
 
-1. Ink Sepolia deployment and source verification are complete; 30/30 automated test batches are mined and retained as testnet evidence.
-2. Complete the manual test matrix and human security / TERMS review.
-3. Deploy approved immutable contracts on Ink mainnet only after the checklist is satisfied.
-4. Gather genuine external mainnet usage before claiming adoption or traction.
-5. Record real addresses, runtime hashes, transactions, timestamps, and verification URLs in
-   `deployments/ink-mainnet.json`.
-6. [DONE] Public app: https://tentacle-production-747b.up.railway.app with GitHub source linked.
-7. Obtain genuine mainnet use from independently inspectable wallets. Do not fabricate it and do
-   not call automated testnet traffic traction.
-8. Record a concise reviewer demo: connect → recipients → simulation → send → receipt/explorer proof.
+1. [DONE] Ink Sepolia deployment, source verification, and 30/30 automated test batches.
+2. [DONE] Verified Ink mainnet USDC/ETH beta deployment with checked-in runtime hash, transaction, timestamp, and explorer URL.
+3. [DONE] Public app, MCP/API/SDK agent interfaces, reviewer metrics, and demo recording.
+4. Run a small project-controlled mainnet QA batch and label it as QA, not traction.
+5. Complete human TERMS/legal review and independent professional security review before calling the product audited.
+6. Obtain genuine external mainnet use before claiming adoption or traction.
+7. Decide whether/when to deploy the separate USDC.e instance.
 ## Suggested measurable milestones
 
 These are goals, not present claims:
@@ -73,9 +67,10 @@ These are goals, not present claims:
 
 - App: https://tentacle-production-747b.up.railway.app
 - GitHub: https://github.com/enstest1/inc_tentacle
-- Mainnet contracts: TODO (not deployed)
-- Mainnet explorer / verified source: TODO (not deployed)
-- Mainnet activity dashboard: `/stats` after real deployment records are populated
+- Mainnet contract: https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164
+- Mainnet verified source: https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164?tab=contract
+- Mainnet deployment tx: https://explorer.inkonchain.com/tx/0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b
+- Mainnet activity dashboard: https://tentacle-production-747b.up.railway.app/stats
 - Ink Sepolia contract: https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a
 - Testnet evidence: 30 mined Sepolia batches retained locally in gitignored `evidence/`; not traction
 - Demo video: `demo/tentacle-reviewer-demo.mp4` in the public repository
@@ -86,4 +81,4 @@ This release candidate adds reviewer-usable agent infrastructure on top of the i
 
 The x402 surface is intentionally scoped to V2-style discovery metadata today. CAIP-2 network identifiers are validated with `@x402/core`; paid settlement is not claimed until an Ink-compatible facilitator or reviewed self-facilitator is configured. This distinction should remain explicit in any Spark submission.
 
-Mainnet deployment and genuine external usage remain submission gates. Automated Sepolia activity is technical evidence only.
+Mainnet deployment is complete. Genuine external usage remains an adoption milestone, not a claim in the current application. Automated Sepolia activity remains technical evidence only.

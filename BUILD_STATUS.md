@@ -6,13 +6,14 @@ Audit date: 2026-09-30
 - [x] Public `/stats` reviewer page based exclusively on configured `BatchExecuted` logs
 - [x] Repeatable local / Ink Sepolia interaction-evidence campaign (20–50 native batches)
 - [x] Ink Sepolia deployment, verified source, and recorded 30-transaction test evidence
-- [ ] Ink mainnet deployment, verification, and genuine mainnet activity
+- [x] Ink mainnet USDC/ETH deployment and Blockscout verification
+- [ ] Genuine external mainnet activity
 
 ## Current status
 
-**MAINNET NOT DEPLOYED — NOT READY TO CLAIM TRACTION OR SUBMIT AS A LIVE MAINNET PRODUCT.**
+**LIMITED MAINNET BETA LIVE — DO NOT CLAIM EXTERNAL TRACTION YET.**
 
-`deployments/ink-mainnet.json` remains a zero-address placeholder. Ink Sepolia is deployed and source-verified at `0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a`; `/stats?network=sepolia` reads its onchain logs. Anvil remains a local development deployment only.
+The verified USDC-backed Ink mainnet Tentacle contract is `0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164`. It supports native ETH batching and Circle USDC batching. USDC.e remains undeployed. Ink Sepolia remains separate technical evidence only.
 
 ## Reviewer metrics
 
@@ -53,12 +54,11 @@ fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Se
 
 ## Remaining work
 
-1. Complete the remaining manual matrix and human security / TERMS review.
-2. Deploy verified contracts on Ink mainnet only after all checklist gates are signed off.
-3. Populate mainnet deployment records with addresses, bytecode hashes, transactions, timestamps, and URLs.
-4. Obtain genuine external mainnet usage before claiming adoption or traction.
-5. Public hosting is live at https://tentacle-production-747b.up.railway.app; keep it healthy while collecting genuine mainnet activity.
-6. Submit only when claims are supported by `/stats`, explorer links, and the public source repository.
+1. Complete human TERMS/legal review and obtain an independent professional security review before describing the contracts as audited.
+2. Run a small mainnet QA batch and keep it clearly labelled as project-controlled QA, not external traction.
+3. Obtain genuine external mainnet usage before claiming adoption or traction.
+4. Decide whether/when to deploy the separate USDC.e instance.
+5. Keep public hosting healthy and submit only claims supported by `/stats`, explorer links, and the public source repository.
 ## Dependency audit
 
 `npm audit` on 2026-09-30 reports **0 critical, 2 high, 25 moderate** advisories. The two high advisories are PostCSS in the Next 15 dependency path and `ws` in the wagmi/WalletConnect dependency path; npm only offers breaking major upgrades to Next 16 and wagmi 3 for those paths. V1 does not expose WalletConnect. Reassess and remediate/accept explicitly before any mainnet launch rather than forcing unreviewed major migrations into this release candidate.
@@ -90,11 +90,7 @@ known high dependency advisories remain visible review gates rather than hidden 
 The agent-first reviewer recording is checked in at `demo/tentacle-reviewer-demo.mp4`
 and can be regenerated with `scripts/record-reviewer-demo.mjs` against a public host.
 
-Mainnet preflight (no broadcast): Ink USDC and USDC.e addresses both contain contract code
-and report 6 decimals with the expected symbols. Constructor `eth_estimateGas` succeeds for
-both Tentacle deployments at about 799,650 gas each. At the checked gas price this was about
-0.00000080 ETH of L2 execution fee per deployment before OP-stack L1 data fees. The dedicated
-deployment wallet held 0.00042 ETH. No mainnet transaction was signed or broadcast.
+Mainnet launch evidence: the dedicated wallet deployed the USDC-backed Tentacle instance on Ink mainnet at `0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164` in transaction `0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b`. Receipt status is success, the onchain `TOKEN()` getter resolves to Circle USDC, runtime bytecode hash is `0x6be0c625ce8f948b42550c16a97da2433efaed93984f3896522d997429918d0e`, and Blockscout source verification passed.
 
 ## MCP protocol smoke test — 2026-10-01
 

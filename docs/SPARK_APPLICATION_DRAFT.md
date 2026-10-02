@@ -1,6 +1,6 @@
 # Ink Spark application draft
 
-Status: public production app is live; final submission remains gated by the approved mainnet deployment and genuine external usage.
+Status: public production app and verified Ink mainnet beta are live. External-user traction is not yet claimed.
 
 ## Project name
 Tentacle
@@ -31,7 +31,9 @@ This directly supports Ink's agent/payment infrastructure category: one small pe
 Current testnet evidence: 30/30 automated Ink Sepolia batch transactions mined, with exactly 30 `BatchExecuted` events. This is technical test evidence, not user traction.
 
 ## Mainnet contracts
-TODO after security/legal/release gates. Do not replace this with testnet addresses.
+- Verified Tentacle (native ETH + Circle USDC): https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164?tab=contract
+- Deployment transaction: https://explorer.inkonchain.com/tx/0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b
+- USDC.e deployment: pending; not claimed as live.
 
 ## Category
 AI / Agent Infrastructure; Payments / Developer Infrastructure.
@@ -39,4 +41,4 @@ AI / Agent Infrastructure; Payments / Developer Infrastructure.
 ## Funding request
 Suggested ask: **$15,000 USDC**, milestone-based.
 
-Proposed use: independent security review and remediation, production hosting/observability, reviewed Ink mainnet launch, x402 facilitator/self-facilitator integration research, SDK/MCP hardening, and developer onboarding/demo assets. No grant claim should depend on fabricated testnet or self-generated "traction."
+Proposed use: independent security review and remediation, USDC.e/mainnet expansion, x402 facilitator or reviewed self-facilitator integration, SDK/MCP hardening, ecosystem integrations, developer onboarding, and measurable external Ink usage. No grant claim depends on fabricated testnet or self-generated "traction."

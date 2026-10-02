@@ -86,11 +86,12 @@ function ChainSummary({ view, testnet }: { view: ChainView; testnet: boolean }) 
   if (view.deployments.length === 0 || view.deployments.every((entry) => !configured(entry.deployment.tentacle))) {
     return <p className="mb-4 rounded-xl border border-ink-border bg-ink-surface p-4 text-sm text-ink-warning">No configured {testnet ? "testnet" : "mainnet"} deployment. Network totals are unavailable.</p>;
   }
-  if (view.deployments.some((entry) => !entry.events)) {
-    return <p className="mb-4 rounded-xl border border-ink-border bg-ink-surface p-4 text-sm text-ink-warning">Complete network totals are unavailable until every configured deployment has a readable deployment transaction and public-RPC event range.</p>;
+  const configuredEntries = view.deployments.filter((entry) => configured(entry.deployment.tentacle));
+  if (configuredEntries.some((entry) => !entry.events)) {
+    return <p className="mb-4 rounded-xl border border-ink-border bg-ink-surface p-4 text-sm text-ink-warning">Complete totals for configured deployments are unavailable until each live contract has a readable deployment transaction and public-RPC event range.</p>;
   }
-  const stats = aggregateBatchEvents(view.deployments.flatMap((entry) => entry.events ?? []));
-  const tokens = configuredTokenTotals(view.deployments.map((entry) => entry.deployment), stats.tokenTotals);
+  const stats = aggregateBatchEvents(configuredEntries.flatMap((entry) => entry.events ?? []));
+  const tokens = configuredTokenTotals(configuredEntries.map((entry) => entry.deployment), stats.tokenTotals);
   return <dl className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-5">
     <Metric label="All batches">{stats.batches.toLocaleString()}</Metric>
     <Metric label="All recipients">{stats.recipients.toLocaleString()}</Metric>
