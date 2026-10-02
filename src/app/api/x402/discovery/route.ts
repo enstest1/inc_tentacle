@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { NetworkSchema } from "@x402/core/schemas";
 
 export function GET(request: Request) {
   const networks = ["eip155:57073", "eip155:763373"].map((network) => NetworkSchema.parse(network));
@@ -24,7 +25,8 @@ export function GET(request: Request) {
         resource: `${origin}/api/mcp`,
         type: "mcp",
         x402Version: 2,
-        accepts: [],        extensions: {
+        accepts: [],
+        extensions: {
           bazaar: {
             info: {
               input: {
