@@ -53,3 +53,6 @@ yarn-error.log*
 
 # Generated local/test campaign evidence; never report as traction
 evidence/
+
+# Raw Playwright demo captures; final MP4 lives under demo/
+demo/*.webm

@@ -79,3 +79,31 @@ The current branch now includes a real agent integration layer rather than only 
 Production x402 paid settlement is not claimed or enabled because an Ink-compatible facilitator/self-facilitator has not yet been reviewed/configured. Mainnet remains gated by the human deployment/security checklist.
 
 Validation after these changes: TypeScript typecheck passes and 76/76 Vitest tests pass across 12 files, including new agent transaction-builder tests. Windows currently blocks specific Next-generated JavaScript filenames locally; `/agents`, the agent manifest, and x402 discovery returned HTTP 200 under local Turbopack, while clean production build validation is delegated to Linux CI.
+
+## Release-candidate validation — 2026-10-01
+
+GitHub Actions run `36948025019` passed on Linux for commit `356bb04`: frontend lint,
+TypeScript, 76/76 Vitest tests, Next production build, Playwright E2E, Slither job,
+Foundry contract tests/coverage path, and secret scanning. Gas snapshot drift and the two
+known high dependency advisories remain visible review gates rather than hidden failures.
+
+The agent-first reviewer recording is checked in at `demo/tentacle-reviewer-demo.mp4`
+and can be regenerated with `scripts/record-reviewer-demo.mjs` against a public host.
+
+Mainnet preflight (no broadcast): Ink USDC and USDC.e addresses both contain contract code
+and report 6 decimals with the expected symbols. Constructor `eth_estimateGas` succeeds for
+both Tentacle deployments at about 799,650 gas each. At the checked gas price this was about
+0.00000080 ETH of L2 execution fee per deployment before OP-stack L1 data fees. The dedicated
+deployment wallet held 0.00042 ETH. No mainnet transaction was signed or broadcast.
+
+## MCP protocol smoke test — 2026-10-01
+
+The remote `/api/mcp` endpoint completed a real MCP `initialize` handshake for protocol
+`2025-06-18`, identifying itself as `tentacle-ink` v1.1.0 and advertising tool capabilities.
+`tools/list` returned all four Tentacle tools. A real `tentacle_prepare_batch` call returned
+unsigned Sepolia `batchNative` calldata/value for the verified contract, with the wallet kept as
+the signing boundary.
+
+After hardening log scans to 9,999-block chunks for public-RPC compatibility,
+`tentacle_get_stats` returned 30 batches, 120 recipients, 1 unique sender, and 0.00024 ETH
+distributed from the verified Ink Sepolia deployment. This remains testnet evidence only.
