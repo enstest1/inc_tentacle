@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 /**
- * Full-bleed Lichtenberg/tentacle banner. Decorative — alt is empty so
- * screen readers skip it; the wordmark in Header is the accessible name.
+ * Decorative hero artwork. The full source is shown without browser-side
+ * upscaling so the fine agent/network detail stays crisp on wide screens.
  */
 export function Banner() {
   return (
@@ -12,8 +12,9 @@ export function Banner() {
         alt=""
         fill
         priority
+        unoptimized
         sizes="100vw"
-        className="pointer-events-none object-cover object-top"
+        className="pointer-events-none object-contain object-center"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink-bg" />
     </div>
