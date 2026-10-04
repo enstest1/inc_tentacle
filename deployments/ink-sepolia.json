@@ -2,27 +2,27 @@
   "chainId": 763373,
   "deployments": [
     {
-      "label": "MOCK",
-      "tentacle": "0x0000000000000000000000000000000000000000",
-      "token": "0x0000000000000000000000000000000000000000",
-      "tokenSymbol": "MOCK",
-      "tokenDecimals": 6,
-      "tokenIsProxy": false,
-      "tokenImplementation": "",
-      "tokenBlacklistable": false,
-      "tokenPausable": false,
-      "tokenSupportsPermit": false,
-      "runtimeBytecodeHash": "0x",
-      "deploymentTx": "",
-      "deployer": "",
       "compiler": "0.8.36",
+      "deployedAt": "2026-09-30T21:18:17.000Z",
+      "deployer": "0xA634BcD929951E3f510B96984aeaEDAF06af8e02",
+      "deploymentTx": "0x45eccf047a7529a8c64effea986d249331c7daff677463293d7c5f046ff67bc1",
       "evmVersion": "cancun",
+      "gitCommit": "697228614bb3286d6a6b79accec93715240ca512",
+      "label": "MOCK",
       "optimizer": true,
       "optimizerRuns": 200,
+      "runtimeBytecodeHash": "0x756f2635e4c1f8d516a8b1bf5bf128ec07d0e1e053f8bd9c2dc32b270ac92f02",
+      "tentacle": "0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a",
+      "token": "0xE92F7634393Ef5b6Dd9fBc6d81B61E62A39E5164",
+      "tokenBlacklistable": false,
+      "tokenDecimals": 6,
+      "tokenImplementation": "",
+      "tokenIsProxy": false,
+      "tokenPausable": false,
+      "tokenSupportsPermit": false,
+      "tokenSymbol": "MOCK",
       "viaIr": false,
-      "gitCommit": "",
-      "deployedAt": "",
-      "verifiedUrl": ""
+      "verifiedUrl": "https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a?tab=contract"
     }
   ]
 }

@@ -1,82 +1,110 @@
 # Tentacle Build Status
 
-- [x] Phase 0  — Repository inspection
-- [x] Phase 1  — Project scaffolding
-- [x] Phase 2  — Smart contract
-- [x] Phase 3  — Smart-contract tests
-- [x] Phase 4  — Local deployment (Anvil)
-- [x] Phase 5  — Frontend shell
-- [x] Phase 6  — Wallet connection
-- [x] Phase 7  — Recipient/amount engine
-- [x] Phase 8  — SafeSend preflight
-- [x] Phase 9  — Transaction execution
-- [x] Phase 10 — Receipt system
-- [ ] Phase 11 — Ink Sepolia deployment
-- [x] Phase 12 — Security hardening
-- [x] Phase 13 — Audit preparation
-- [x] Phase 14 — Production readiness review
+Audit date: 2026-09-30
 
-## Last Completed
-Phase 14 — Production readiness review (2026-08-25)
+- [x] Smart contract, local Anvil deployment, frontend, simulation, receipts, and test suite
+- [x] Public `/stats` reviewer page based exclusively on configured `BatchExecuted` logs
+- [x] Repeatable local / Ink Sepolia interaction-evidence campaign (20–50 native batches)
+- [x] Ink Sepolia deployment, verified source, and recorded 30-transaction test evidence
+- [x] Ink mainnet USDC/ETH deployment and Blockscout verification
+- [ ] Genuine external mainnet activity
+- [x] Spark grant application submitted on 2026-10-01
 
-Software is built and locally verified. Ink Sepolia is **not** deployed: `DEPLOYER_PRIVATE_KEY` was never supplied, and this agent must not invent one. Mainnet remains human-gated.
+## Current status
 
-```
-MAINNET READY — NOT DEPLOYED
-H. MAINNET READINESS — NOT READY
-```
+**LIMITED MAINNET BETA LIVE — DO NOT CLAIM EXTERNAL TRACTION YET.**
 
-### A. BUILD STATUS
-V1 app, contract, tests, CI, and docs are in this repo. Users can connect an injected wallet on Ink / Ink Sepolia, build equal/custom batches, import CSV, split >50, simulate, approve exactly, and send. Send stays disabled until SafeSend mandatory checks pass (including deployment hash, which is empty until a real deploy).
+The verified USDC-backed Ink mainnet Tentacle contract is `0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164`. It supports native ETH batching and Circle USDC batching. USDC.e remains undeployed. Ink Sepolia remains separate technical evidence only.
 
-### B. CONTRACT
-- Source: `contracts/src/TentacleBatcher.sol` (pragma 0.8.36, evm cancun, classic ReentrancyGuard)
-- Runtime size: 3,295 bytes
-- Sepolia: not deployed
-- Anvil: Tentacle `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512` / MockUSDC `0x5FbDB2315678afecb367f032d93F642f64180aa3`
+## Reviewer metrics
 
-### C. TESTS
-- Foundry: 48 passed (unit + 512-run fuzz + 256-run invariants, 128k calls)
-- Vitest: 67 passed
-- Playwright: 3 passed (axe on main page, CSV line errors, connect copy)
-- Manual Sepolia 1–25: not run
+`/stats` reads public Ink RPC logs for `BatchExecuted` only at non-zero Tentacle addresses from
+the deployment JSON. It aggregates batches, recipients, unique senders, native ETH distributed
+(including token-batch ETH top-ups), and per-configured-token totals. Explorer and verification
+links are derived from the same deployment record. RPC failure is shown as unavailable, never as
+no activity.
 
-### D. SECURITY
-- Slither: expected HIGH/MEDIUM (arbitrary-send-eth, calls-loop, reentrancy-events) triaged as ACCEPTED in `docs/SLITHER_TRIAGE.md`. Human sign-off still required before testnet release.
-- Threat model written and aligned with the code
-- CSP + security headers in `next.config.js` (`unsafe-eval` required by Next.js)
-- No backend, no custody, no `from` parameter
+`/stats?network=sepolia` is deliberately separate and labelled **Ink Sepolia test evidence only**.
+It must never be described as users, adoption, or mainnet traction.
 
-### E. FRONTEND
-- `npm run build` succeeded
-- Axe: no serious/critical on the main page
+## Evidence workflow
 
-### F. COSTS
-See `docs/TEST_PLAN.md`. 50-recipient `batchNative` is 2,231,814 L2 gas on Foundry. L1 data fee needs a real OP Stack node.
+`npm run campaign:anvil -- --count 30` and `npm run campaign:sepolia -- --count 30` invoke
+`scripts/interaction-campaign.mjs`. The script accepts only `anvil` and `sepolia`, defaults to 30,
+and rejects counts outside 20–50. It sends real tiny native `batchNative` interactions, verifies
+the receipt includes `BatchExecuted`, and saves an incremental JSON receipt record in gitignored
+`evidence/`. It has no mainnet option.
 
-### G. KNOWN LIMITATIONS
-See `docs/KNOWN_LIMITATIONS.md`.
+Anvil uses an unlocked local account and needs no key. Sepolia requires the existing gitignored
+`DEPLOYER_PRIVATE_KEY` to be present in the execution environment; its value is never logged or
+written to the evidence file. If Anvil or its configured contract is unavailable, the script fails
+with setup guidance and does not try to deploy anything.
+## Security and deployment gates
 
-### H. MAINNET READINESS
-**NOT READY** — no Sepolia verification, no 25 manual hashes, no human TERMS review, no independent audit, token proxy/admin not read on-chain.
+- Contract source: `contracts/src/TentacleBatcher.sol` (immutable, non-custodial design preserved)
+- Contract is not independently audited.
+- Human sign-off is still required for TERMS, Slither triage, token validation, deployment, and verification.
+- Do not run a mainnet deployment unless the documented human confirmation gate is satisfied.
 
-## Open Questions
-1. Next.js 15.1.7 is flagged for CVE-2025-66478. Do not ignore; a human should pin a patched 15.x and re-run `npm run build` / e2e. Not bumped mid-build to avoid a last-minute App Router break.
-2. `npm audit` reports high/critical issues (largely Next/wagmi/WalletConnect transitives). CI `npm audit --audit-level=high` will fail until those are triaged or Next is patched.
-3. 50-recipient L1 data fee on Ink is not yet measured. If material after Sepolia test 4, consider `batchNativeEqual` as a **human decision** — do not add it in V1 without that number.
-4. OpenZeppelin is installed with `forge install --no-git` (v5.2.0) because `--root contracts` submodules failed on this machine. CI reinstalls the same tag.
+## Validation
 
-## Typography (Commit Mono)
+Current branch validation on 2026-09-30: 73/73 Vitest tests passed across 11 files, 3/3
+Playwright tests passed, TypeScript typecheck passed, the Next.js production build passed with
+`/stats`, and 48/48 Foundry tests passed including 256-run invariants with 128,000 calls each. A
+fresh Anvil campaign completed 30/30 local batch transactions, and a live Ink Sepolia campaign completed 30/30 mined batches with exactly 30 `BatchExecuted` logs. Testnet QA is not traction.
 
-- [x] `public/fonts/CommitMono-Tentacle.woff2` (v1.143 variable, 86,768 bytes)
-- [x] `docs/fonts/custom-settings.json`
-- [x] `public/fonts/OFL.txt`
-- [x] `--font-features` from the customizer download string (not the spec placeholder)
-- [x] No `next/font/google` / no Google Fonts origins
-- [x] CSP `font-src 'self'`
+## Remaining work
 
-## Remaining for a human
-- Provide `DEPLOYER_PRIVATE_KEY` (gitignored) and run Phase 11 Sepolia deploy + Blockscout verify
-- Sign off Slither triage and TERMS.md
-- Re-verify USDC / USDC.e on-chain (§5.2) before any mainnet script
-- Never run `DeployMainnet.s.sol` without `MAINNET_DEPLOYMENT_CONFIRMED=YES_I_HAVE_READ_THE_CHECKLIST`
+1. Complete human TERMS/legal review and obtain an independent professional security review before describing the contracts as audited.
+2. [DONE] Small project-controlled mainnet QA batch mined and publicly verifiable.
+3. Obtain genuine external mainnet usage before claiming adoption or traction.
+4. Decide whether/when to deploy the separate USDC.e instance.
+5. Keep public hosting healthy and respond promptly to Spark reviewer questions or requests.
+## Dependency audit
+
+`npm audit` on 2026-09-30 reports **0 critical, 2 high, 25 moderate** advisories. The two high advisories are PostCSS in the Next 15 dependency path and `ws` in the wagmi/WalletConnect dependency path; npm only offers breaking major upgrades to Next 16 and wagmi 3 for those paths. V1 does not expose WalletConnect. Reassess and remediate/accept explicitly before any mainnet launch rather than forcing unreviewed major migrations into this release candidate.
+
+## Agent-first release candidate
+
+The current branch now includes a real agent integration layer rather than only contract-level agent compatibility:
+
+- remote Streamable HTTP MCP at `/api/mcp`
+- local stdio MCP via `npm run mcp`
+- unsigned HTTP transaction builder at `/api/agent/prepare`
+- machine-readable agent manifest at `/api/agent/manifest`
+- reviewer-verifiable MCP stats tool
+- x402 V2-style discovery metadata at `/api/x402/discovery`, with CAIP-2 network identifiers validated by `@x402/core`
+- TypeScript helper in `sdk/`
+- public `/agents` onboarding page
+
+Production x402 paid settlement is not claimed or enabled because an Ink-compatible facilitator/self-facilitator has not yet been reviewed/configured. Mainnet remains gated by the human deployment/security checklist.
+
+Validation after these changes: TypeScript typecheck passes and 76/76 Vitest tests pass across 12 files, including new agent transaction-builder tests. Windows currently blocks specific Next-generated JavaScript filenames locally; `/agents`, the agent manifest, and x402 discovery returned HTTP 200 under local Turbopack, while clean production build validation is delegated to Linux CI.
+
+## Release-candidate validation — 2026-10-01
+
+GitHub Actions run `36948025019` passed on Linux for commit `356bb04`: frontend lint,
+TypeScript, 76/76 Vitest tests, Next production build, Playwright E2E, Slither job,
+Foundry contract tests/coverage path, and secret scanning. Gas snapshot drift and the two
+known high dependency advisories remain visible review gates rather than hidden failures.
+
+The agent-first reviewer recording is checked in at `demo/tentacle-reviewer-demo.mp4`
+and can be regenerated with `scripts/record-reviewer-demo.mjs` against a public host.
+
+Mainnet launch evidence: the dedicated wallet deployed the USDC-backed Tentacle instance on Ink mainnet at `0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164` in transaction `0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b`. Receipt status is success, the onchain `TOKEN()` getter resolves to Circle USDC, runtime bytecode hash is `0x6be0c625ce8f948b42550c16a97da2433efaed93984f3896522d997429918d0e`, and Blockscout source verification passed.
+
+## MCP protocol smoke test — 2026-10-01
+
+The remote `/api/mcp` endpoint completed a real MCP `initialize` handshake for protocol
+`2025-06-18`, identifying itself as `tentacle-ink` v1.1.0 and advertising tool capabilities.
+`tools/list` returned all four Tentacle tools. A real `tentacle_prepare_batch` call returned
+unsigned Sepolia `batchNative` calldata/value for the verified contract, with the wallet kept as
+the signing boundary.
+
+After hardening log scans to 9,999-block chunks for public-RPC compatibility,
+`tentacle_get_stats` returned 30 batches, 120 recipients, 1 unique sender, and 0.00024 ETH
+distributed from the verified Ink Sepolia deployment. This remains testnet evidence only.
+
+## Mainnet QA evidence — 2026-10-01
+
+Project-controlled QA tx `0x9bdf4f65c7f9e164ed06391947cbcc9b71dc123bf9e8da444c0269372d0b1d5b` succeeded on Ink mainnet against the verified USDC-backed Tentacle contract. It emitted one `BatchExecuted` event covering 2 recipients and 0.000003 ETH. This is launch QA, not external-user traction. Mainnet public-RPC log scans are chunked to 1,000 blocks maximum for compatibility with Ink public RPC limits.

@@ -56,6 +56,21 @@ export default function Page() {
         </div>
       </div>
       <main className="mx-auto max-w-2xl px-4 pb-10 md:px-0">
+        <a
+          href="/agents"
+          className="mt-8 block rounded-2xl border border-ink-border bg-ink-surface p-5 transition hover:border-ink-muted md:p-6"
+        >
+          <div className="flex items-start justify-between gap-5">
+            <div>
+              <p className="text-xs uppercase tracking-[0.18em] text-ink-muted">For agents</p>
+              <h2 className="mt-2 text-xl font-medium text-ink-text">MCP + API + x402 discovery</h2>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">
+                Agents can prepare atomic Ink batch payments without handing Tentacle a private key.
+              </p>
+            </div>
+            <span className="mt-1 text-sm text-ink-muted">Open →</span>
+          </div>
+        </a>
 
         <div className="mt-10 space-y-6 rounded-2xl border border-ink-border bg-ink-surface p-5 md:p-8">
           <NetworkGate>
@@ -118,10 +133,21 @@ export default function Page() {
           Never custodial · Simulated before send
         </p>
         <footer className="mt-10 flex justify-center gap-4 text-xs text-ink-muted">
+          <a href="/agents" className="underline">
+            For Agents
+          </a>
+          <a href="/stats" className="underline">
+            Stats
+          </a>
           <a href="/terms" className="underline">
             Terms
           </a>
-          <a href="https://github.com" className="underline">
+          <a
+            href="https://github.com/enstest1/inc_tentacle"
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
             Source
           </a>
         </footer>

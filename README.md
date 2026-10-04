@@ -1,50 +1,141 @@
 # Tentacle
 
-**One send. Every wallet.**
+**Agent-native payments on Ink. One transaction. Up to 50 recipients. No custody.**
 
-Non-custodial batch payments on [Ink](https://inkonchain.com). Connect one wallet, enter multiple recipients, and send ETH or USDC to all of them in a single atomic transaction. Tentacle never holds the funds.
+Tentacle is a non-custodial payment rail for AI agents, smart accounts, and human wallets on Ink.
+Agents can discover Tentacle over MCP, prepare deterministic unsigned ETH or USDC batch payments,
+verify the live deployment and onchain activity, then hand signing to their own wallet policy.
+Tentacle never receives a private key and never takes custody of funds.
+
+**Live on Ink mainnet:** native ETH + Circle USDC through the verified immutable Tentacle contract.
+The public MCP/API/SDK make the same payment primitive directly usable by agent workflows.
+
+### Why agents use Tentacle
+
+- Pay or fund up to 50 wallets atomically in one Ink transaction.
+- Prepare transactions through MCP or HTTP without giving Tentacle signing authority.
+- Use ETH or native USDC today; USDC.e is explicitly pending.
+- Verify execution through `BatchExecuted` and public onchain stats.
+- No admin key, relayer, protocol custody, fee switch, or upgrade key.
 
 ## What V1 does
 
-- Native ETH and Ink USDC / USDC.e (two deployments of the same contract)
-- Equal or custom payouts
-- Optional ETH gas top-up with token payouts
+- Native ETH and Ink USDC / USDC.e (one immutable contract deployment per token)
+- Equal or custom payouts, optional ETH gas top-up with token payouts
 - Paste addresses or import a restricted CSV
-- Simulation before send, with invalidation if anything changes
+- Simulation before send, invalidated when the payment intent changes
 - Atomic batches of up to 50 recipients; larger lists split with an explicit non-atomicity warning
+- Emits `BatchExecuted` for verifiable onchain execution and receipts
 
-## What V1 does not do
+Tentacle has no admin key, custody account, relayer, `from` parameter, fees, or upgrade path.
+Any wallet or smart-account system that can authorize an Ink transaction can call it directly.
+See `docs/AGENT_INTEGRATION.md` and `docs/KNOWN_LIMITATIONS.md`.
 
-No custody, accounts, backend, fees, upgrades, admin keys, relayers, WalletConnect, ENS, or arbitrary tokens. See `docs/KNOWN_LIMITATIONS.md`.
+## Live app
+
+- App: https://tentacle-production-747b.up.railway.app
+- Agent onboarding: https://tentacle-production-747b.up.railway.app/agents
+- Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
+- Agent manifest: https://tentacle-production-747b.up.railway.app/api/agent/manifest
+- x402 discovery: https://tentacle-production-747b.up.railway.app/api/x402/discovery
+- Mainnet reviewer stats: https://tentacle-production-747b.up.railway.app/stats
+- Sepolia test evidence: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
 
 ## Develop
 
 ```bash
 npm ci
 npm run dev
+npm test
+npm run typecheck
+npm run build
+npm run test:e2e
 ```
 
-Contracts:
+Contracts (Foundry):
 
 ```bash
 cd contracts
-forge install foundry-rs/forge-std --no-git --shallow
-forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-git --shallow
 forge build
 forge test -vvv
 ```
+## Reviewer-facing onchain stats
 
-## Security
+`/stats` is a public reviewer page. It reads only `BatchExecuted` logs through
+the public Ink RPCs for non-zero addresses recorded in `deployments/ink-mainnet.json`.
 
-See `SECURITY.md`. This software is **not audited**. Do not send mainnet funds until an independent review is complete and a human has run the deployment checklist.
+It shows batch count, recipient count, unique senders, ETH distributed (native payouts plus token
+gas top-ups), configured-token totals, and explorer/deployment links. It never uses a database or
+off-chain counter. A public RPC failure is shown as unavailable, not zero activity. The primary
+Ink mainnet USDC-backed Tentacle deployment is recorded and verified; USDC.e remains explicitly pending.
 
-### Dependencies (fonts)
+Ink Sepolia is shown in a separate **test evidence** section. It is explicitly not mainnet
+activity, users, or traction.
 
-Commit Mono v1.143 is SIL Open Font License 1.1 (`public/fonts/OFL.txt`). Free for commercial use, including the Tentacle wordmark. No attribution is required unless a derivative font is produced.
+## Interaction campaign evidence
 
-## Networks
+The campaign makes 20–50 real `batchNative` calls (default 30) against only Anvil or Ink Sepolia.
+It varies recipient counts and uses very small native test amounts. It records transaction hashes,
+receipt status, block numbers, and recipients in `evidence/interaction-campaign-*.json`; that
+directory is gitignored. It never has a mainnet option.
+
+Anvil uses an unlocked local node account, so no key is read by the campaign. Start Anvil and use
+the existing local deployment before running it:
+
+```bash
+anvil
+cd contracts
+forge script script/DeployLocal.s.sol:DeployLocal --rpc-url http://127.0.0.1:8545 --broadcast
+cd ..
+npm run campaign:anvil -- --count 30
+```
+If Foundry is unavailable, the campaign does not attempt deployment: it can use an already-running
+Anvil deployment matching `deployments/anvil.json`, otherwise it fails with an actionable message.
+
+For Ink Sepolia, a human must first deploy and record a real non-zero address in
+`deployments/ink-sepolia.json`. Run from a secret-aware shell where the existing gitignored
+`DEPLOYER_PRIVATE_KEY` is available as an environment variable:
+
+```bash
+npm run campaign:sepolia -- --count 30
+```
+
+Sepolia evidence is test evidence only. Do not describe automated testnet transactions as users,
+adoption, or mainnet traction.
+
+## Security and deployment status
+
+The contracts are **not independently audited**. A limited Ink mainnet beta is live for native ETH and
+Circle USDC through the verified immutable USDC-backed Tentacle contract. USDC.e remains undeployed and
+is shown as pending rather than implied as available.
 
 | Network | Chain ID | Explorer |
-|---|---|---|
+|---|---:|---|
 | Ink | 57073 | https://explorer.inkonchain.com |
 | Ink Sepolia | 763373 | https://explorer-sepolia.inkonchain.com |
+
+## Spark submission status
+
+Tentacle is now a **live, verified Ink mainnet beta** for ETH and native USDC, with public agent interfaces
+and reviewer metrics. It still must not claim independent-user traction until external wallets use it.
+See `docs/SPARK_SUBMISSION.md` for the evidence and remaining adoption milestones.
+
+## Source
+
+Repository: https://github.com/enstest1/inc_tentacle
+
+## Agent-first interfaces
+
+Tentacle can now be used directly by agents as well as through the wallet UI.
+
+- `/agents` — copy-paste MCP/API onboarding for agent builders.
+- `/api/mcp` — remote Streamable HTTP MCP endpoint.
+- `npm run mcp` — local stdio MCP server.
+- `/api/agent/prepare` — unsigned transaction builder for ETH, USDC, and USDC.e batches.
+- `/api/agent/manifest` — machine-readable capability manifest.
+- `/api/x402/discovery` — x402 V2-style discovery metadata using CAIP-2 network identifiers.
+- `sdk/tentacle-client.ts` — small fetch-based TypeScript client.
+
+MCP tools: `tentacle_prepare_batch`, `tentacle_contract_info`, `tentacle_get_stats`, and `tentacle_x402_info`.
+
+The machine interfaces never receive a private key. They prepare deterministic unsigned transactions for a caller-controlled wallet or smart account to review and sign. x402 discovery interoperability is live; paid x402 settlement is intentionally disabled until an Ink-compatible facilitator or reviewed self-facilitator is configured.
