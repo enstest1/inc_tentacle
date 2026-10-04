@@ -8,7 +8,7 @@ export function Banner() {
   return (
     <div className="relative h-56 w-full overflow-hidden bg-ink-bg md:h-72">
       <Image
-        src="/images/tentacle-banner.jpg"
+        src="/images/tentacle-agent-plume.webp"
         alt=""
         fill
         priority
