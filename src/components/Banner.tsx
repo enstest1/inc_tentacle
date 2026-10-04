@@ -14,7 +14,14 @@ export function Banner() {
         priority
         unoptimized
         sizes="100vw"
-        className="pointer-events-none object-contain object-center"
+        className="pointer-events-none object-contain object-center opacity-90"
+        style={{
+          mixBlendMode: "screen",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 72% 110% at 50% 38%, #000 0%, #000 56%, rgba(0,0,0,.86) 72%, transparent 100%)",
+          maskImage:
+            "radial-gradient(ellipse 72% 110% at 50% 38%, #000 0%, #000 56%, rgba(0,0,0,.86) 72%, transparent 100%)",
+        }}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink-bg" />
     </div>
