@@ -65,12 +65,12 @@ These are goals, not present claims:
 
 ## Evidence links to fill after deployment
 
-- App: https://tentacle-production-747b.up.railway.app
+- App: https://tentacle.my
 - GitHub: https://github.com/enstest1/inc_tentacle
 - Mainnet contract: https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164
 - Mainnet verified source: https://explorer.inkonchain.com/address/0xe92f7634393ef5b6dd9fbc6d81b61e62a39e5164?tab=contract
 - Mainnet deployment tx: https://explorer.inkonchain.com/tx/0xf495d94900b35da1edddf96d463fad963476059284d40b701ef231eceb904c6b
-- Mainnet activity dashboard: https://tentacle-production-747b.up.railway.app/stats
+- Mainnet activity dashboard: https://tentacle.my/stats
 - Ink Sepolia contract: https://explorer-sepolia.inkonchain.com/address/0xDc44eAa018d93f05CB66078a7AB2eEe49a80524a
 - Testnet evidence: 30 mined Sepolia batches retained locally in gitignored `evidence/`; not traction
 - Demo video: `demo/tentacle-reviewer-demo.mp4` in the public repository

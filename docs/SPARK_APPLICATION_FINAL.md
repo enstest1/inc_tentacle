@@ -8,6 +8,8 @@ Tentacle
 ## Project Website
 https://tentacle-production-747b.up.railway.app
 
+> Current canonical domain (added 2026-10-04): https://tentacle.my. The Railway URL above is intentionally retained because it is the URL supplied in the 2026-10-01 Spark submission and remains live for reviewer continuity.
+
 ## Project Twitter
 Leave blank unless a dedicated Tentacle account is created before submission.
 

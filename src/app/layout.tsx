@@ -4,6 +4,8 @@ import { AppProviders } from "@/providers/AppProviders";
 import { commitMono } from "./fonts";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tentacle.my"),
+  alternates: { canonical: "/" },
   title: "Tentacle — One send. Every wallet.",
   description: "Non-custodial batch payments on Ink.",
 };

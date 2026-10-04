@@ -9,10 +9,10 @@ Tentacle is a non-custodial payment rail for AI agents, smart accounts, and huma
 Agent payments become more useful when many small payouts are cheap enough to execute routinely. Ink's low fees and fast blocks make multi-recipient contributor payouts, sub-agent funding, treasury distribution, and automated settlement practical without introducing a custodial relayer. Ink's Superchain position also gives Tentacle a credible path toward interoperable agent payment workflows.
 
 ## What is live today
-- Production app: https://tentacle-production-747b.up.railway.app
-- Agent onboarding: https://tentacle-production-747b.up.railway.app/agents
-- Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
-- Public mainnet stats: https://tentacle-production-747b.up.railway.app/stats
+- Production app: https://tentacle.my
+- Agent onboarding: https://tentacle.my/agents
+- Remote MCP: https://tentacle.my/api/mcp
+- Public mainnet stats: https://tentacle.my/stats
 - Source: https://github.com/enstest1/inc_tentacle
 
 ## Verifiable mainnet evidence

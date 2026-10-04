@@ -1,4 +1,4 @@
-﻿# Ink Spark application draft
+# Ink Spark application draft
 
 Status: public production app and verified Ink mainnet beta are live. External-user traction is not yet claimed.
 
@@ -6,7 +6,7 @@ Status: public production app and verified Ink mainnet beta are live. External-u
 Tentacle
 
 ## Website
-https://tentacle-production-747b.up.railway.app
+https://tentacle.my
 
 ## Repository
 https://github.com/enstest1/inc_tentacle
@@ -19,7 +19,7 @@ The product now exposes the same primitive through a wallet UI, a remote MCP ser
 This directly supports Ink's agent/payment infrastructure category: one small permissionless contract becomes a reusable settlement rail for contributor payouts, sub-agent funding, treasury distributions, automation, and other multi-recipient workflows.
 
 ## Show us what you're building
-- Production UI: https://tentacle-production-747b.up.railway.app
+- Production UI: https://tentacle.my
 - Agent onboarding: `/agents`
 - Remote MCP endpoint: `/api/mcp`
 - Agent manifest: `/api/agent/manifest`

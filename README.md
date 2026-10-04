@@ -33,13 +33,13 @@ See `docs/AGENT_INTEGRATION.md` and `docs/KNOWN_LIMITATIONS.md`.
 
 ## Live app
 
-- App: https://tentacle-production-747b.up.railway.app
-- Agent onboarding: https://tentacle-production-747b.up.railway.app/agents
-- Remote MCP: https://tentacle-production-747b.up.railway.app/api/mcp
-- Agent manifest: https://tentacle-production-747b.up.railway.app/api/agent/manifest
-- x402 discovery: https://tentacle-production-747b.up.railway.app/api/x402/discovery
-- Mainnet reviewer stats: https://tentacle-production-747b.up.railway.app/stats
-- Sepolia test evidence: https://tentacle-production-747b.up.railway.app/stats?network=sepolia
+- App: https://tentacle.my
+- Agent onboarding: https://tentacle.my/agents
+- Remote MCP: https://tentacle.my/api/mcp
+- Agent manifest: https://tentacle.my/api/agent/manifest
+- x402 discovery: https://tentacle.my/api/x402/discovery
+- Mainnet reviewer stats: https://tentacle.my/stats
+- Sepolia test evidence: https://tentacle.my/stats?network=sepolia
 
 ## Develop
 
