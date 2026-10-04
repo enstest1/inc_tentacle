@@ -1,10 +1,22 @@
 # Tentacle
 
-**One send. Every wallet.**
+**Agent-native payments on Ink. One transaction. Up to 50 recipients. No custody.**
 
-Tentacle is non-custodial batch-payment infrastructure built for Ink. A user or wallet-controlled
-agent can distribute ETH, USDC, or USDC.e to many recipients in one atomic transaction without
-depositing funds into Tentacle custody.
+Tentacle is a non-custodial payment rail for AI agents, smart accounts, and human wallets on Ink.
+Agents can discover Tentacle over MCP, prepare deterministic unsigned ETH or USDC batch payments,
+verify the live deployment and onchain activity, then hand signing to their own wallet policy.
+Tentacle never receives a private key and never takes custody of funds.
+
+**Live on Ink mainnet:** native ETH + Circle USDC through the verified immutable Tentacle contract.
+The public MCP/API/SDK make the same payment primitive directly usable by agent workflows.
+
+### Why agents use Tentacle
+
+- Pay or fund up to 50 wallets atomically in one Ink transaction.
+- Prepare transactions through MCP or HTTP without giving Tentacle signing authority.
+- Use ETH or native USDC today; USDC.e is explicitly pending.
+- Verify execution through `BatchExecuted` and public onchain stats.
+- No admin key, relayer, protocol custody, fee switch, or upgrade key.
 
 ## What V1 does
 
